@@ -55,7 +55,7 @@ class LoginForm extends Component {
       <div>
         <Barrier />>
         <LoginBorder>
-          <h2>资产管理系统登陆</h2>
+          <h2>东冠资产管理系统登陆</h2>
 
           <img src={ loginBackground } alt="背景图片" />
           <Form onSubmit={this.handleSubmit} className="login-form" style={{ maxWidth: 300 }}>
