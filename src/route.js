@@ -4,7 +4,8 @@ import {
   Route,
   Switch
 } from 'react-router-dom';
-import HomePage from './component/management/HomePage';
+
+import HomePage from './component/management/Home';
 import UserCenter from './component/management/UserCenter';
 import Summary from './component/management/Summary';
 import Detail from './component/management/Detail';

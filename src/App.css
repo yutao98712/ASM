@@ -9,6 +9,7 @@
 }
 body,a,al,ul,ol {
   text-align: none;
+  text-decoration: none;
 }
 
 
@@ -24,3 +25,5 @@ body::-webkit-scrollbar-thumb {
   background-color: #3366ff;
   outline: 1px solid #3366ff;
 }
+
+
