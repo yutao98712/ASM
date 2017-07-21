@@ -1,16 +1,24 @@
 import React from 'react';
 import { Menu, Icon } from 'antd';
+import {
+  Link
+} from 'react-router-dom';
 const Submenu = Menu.SubMenu;
 const SideNav = (props) => (
   <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
     <Submenu key="sub1" title={<span><Icon type="bank"/><span>资产管理</span></span>}>
       <Menu.Item key="1">
-        <Icon type="exception" />
-        <span className="nav-text">基本信息管理</span>
+        <Link to="/asset/baseInfo">
+          <Icon type="exception" />
+          <span className="nav-text">基本信息管理</span>
+        </Link>
       </Menu.Item >
       <Menu.Item key="2">
-        <Icon type="pushpin-o" />
-        <span className="nav-text">辅助信息管理</span>
+        <Link to="/asset/detail">
+          <Icon type="pushpin-o" />
+          <span className="nav-text">辅助信息管理</span>
+        </Link>
+        
       </Menu.Item>
       <Menu.Item key="3">
         <Icon type="share-alt" />

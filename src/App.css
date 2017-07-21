@@ -6,11 +6,13 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  font-size:14px;
 }
-body,a,al,ul,ol {
+body,a,a:link,a:visited,a:hover,al,ul,ol {
   text-align: none;
   text-decoration: none;
 }
+
 
 
 body::-webkit-scrollbar {

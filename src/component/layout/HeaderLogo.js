@@ -14,8 +14,8 @@ const HeaderLogo = (props) => (
     <div style={{ float:'left',height:"inherit", paddingTop:10}}>
         <img src={logopicture} alt="logo" style={{ height: 60}}/>
     </div>
-    <div style={{ height:"inherit", fontSize: 30,float:"left",padding: 10}}>
-      <span>东冠资产管理系统</span>
+    <div style={{ height:"inherit",float:"left",padding: 10}}>
+      <span style={{ fontSize: 25 }}>东冠资产管理系统</span>
     </div> 
     <ClearFloat />
   </Header>

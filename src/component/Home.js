@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { Layout } from 'antd';
-import HeaderLogo from '../layout/HeaderLogo';
-import SideNav from '../layout/SideNav';
-import ContentView from '../layout/Content';
-import ContentHeader from '../layout/ContentHeader';
+import HeaderLogo from './layout/HeaderLogo';
+import SideNav from './layout/SideNav';
+import ContentView from './layout/Content';
+import ContentHeader from './layout/ContentHeader';
+import {
+  Route
+} from 'react-router-dom';
 const { Header, Content, Footer, Sider } = Layout;
 
 /**
@@ -12,7 +15,7 @@ const { Header, Content, Footer, Sider } = Layout;
  * ContentView 内容展示区块
  */
 
-class HomePage extends Component {
+class HomePage extends Component { 
   render() {
     return (
       <Layout>
@@ -23,10 +26,10 @@ class HomePage extends Component {
           </Sider>
           <Layout style={{ height:"100vh" }}>
             <Header style={{ background: '#fff', padding: 0 }}>
-              <ContentHeader />
+              <ContentHeader location={this.props.location}/>
             </Header>
             <Content style={{ margin: '24px 16px 0', overflow: 'auto' }}>
-              <ContentView />
+              <ContentView routes={ this.props.routes }/>
             </Content>
             <Footer style={{ textAlign: 'center' }}>
               Asset Management Stystem ©2017 Created by Research and Development Department 
@@ -34,7 +37,6 @@ class HomePage extends Component {
           </Layout>
         </Layout>
       </Layout>
-      
     )
   }
 }
