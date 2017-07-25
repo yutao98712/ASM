@@ -34,7 +34,6 @@ class BaseFrom extends Component {
         sm: { span: 14 }
       },
     };
-
     const tailFormItemLayout = {
       wrapperCol: {
         xs: {
@@ -105,7 +104,7 @@ class BaseFrom extends Component {
         >
           { getFieldDecorator('price')(<InputNumber min={0} step={0.01}/>) }
         </FormItem>
-         <FormItem
+        <FormItem
           {...formItemLayout}
           label="购置日期"
         >
