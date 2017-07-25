@@ -5,6 +5,7 @@ import {
 } from 'react-router-dom';
 import LazyLoader from './LazyLoader';
 import loadBase from 'bundle-loader?lazy!./component/asset/BaseInfo';
+import AddBase from './component/asset/AddBase';
 import HomePage from './component/Home';
 import UserCenter from './component/management/UserCenter';
 import Detail from './component/management/Detail';
@@ -23,6 +24,10 @@ const routes = [
     routes: [
       { path: '/asset/baseInfo',
         component: BaseInfo,
+        exact: true
+      },
+      { path: '/asset/baseInfo/addBase',
+        component: AddBase,
         exact: true
       },
       { path: '/asset/Detail',
@@ -45,6 +50,7 @@ const routes = [
 export const RouteWithSubRoutes = (route) => (
   <Route 
     path={route.path} 
+    exact={route.exact}
     render={props => (
       <route.component {...props} routes={route.routes} />
     )}

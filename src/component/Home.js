@@ -4,9 +4,6 @@ import HeaderLogo from './layout/HeaderLogo';
 import SideNav from './layout/SideNav';
 import ContentView from './layout/Content';
 import ContentHeader from './layout/ContentHeader';
-import {
-  Route
-} from 'react-router-dom';
 const { Header, Content, Footer, Sider } = Layout;
 
 /**
@@ -31,7 +28,7 @@ class HomePage extends Component {
             <Content style={{ margin: '24px 16px 0', overflow: 'auto' }}>
               <ContentView routes={ this.props.routes }/>
             </Content>
-            <Footer style={{ textAlign: 'center' }}>
+            <Footer style={{ textAlign: 'center'}}>
               Asset Management Stystem ©2017 Created by Research and Development Department 
             </Footer>
           </Layout>

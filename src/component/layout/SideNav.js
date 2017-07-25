@@ -17,8 +17,7 @@ const SideNav = (props) => (
         <Link to="/asset/detail">
           <Icon type="pushpin-o" />
           <span className="nav-text">辅助信息管理</span>
-        </Link>
-        
+        </Link> 
       </Menu.Item>
       <Menu.Item key="3">
         <Icon type="share-alt" />
