@@ -4,7 +4,7 @@ class ContentView extends Component {
   render() {
     const {routes} = this.props;
     return (
-      <div style={{ padding: 14, background: '#fff'}}>
+      <div style={{ padding: "14px 30px", background: '#fff',margin:"0 30px"}}>
         {routes.map((route,i) => (
           <RouteWithSubRoutes key={i} {...route}/>
         ))}

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from "styled-components";
 import Title from '../custom/Title';
+import moment from 'moment';
 import {
   Link
 } from 'react-router-dom';
@@ -10,9 +11,11 @@ import {
   Button,
   Input,
   Menu,
-  Dropdown
+  Dropdown,
+  Switch,
+  DatePicker
 } from 'antd';
-
+const RangePicker = DatePicker.RangePicker;
 
 const CustomFilterDropdown = styled.div`
   padding: 8px;
@@ -43,12 +46,11 @@ const CustomButton = styled.button`
 `;
 //模拟列表信息
 const data = [];
-
 for(let i=0; i<46; i++){
   data.push({
     key:i,
-    name: '万用表',
-    type: '维护工具',
+    name: i%2===1?'万用表':"台式电脑",
+    type: i%2===1?'维护工具':"办公设备",
     model: '胜利钳形表6956B',
     SN: '092723011',
     amount: 1,
@@ -93,11 +95,29 @@ class BaseInfo extends Component {
 
   state = {
     filterDropdownVisible: false,
+    dateFilterDropdownVisible:false,
     data,
     searchText: '',
-    filtered:false 
+    filtered:false ,
+    pagination: {
+      showSizeChanger:true,
+      showQuickJumper:true,
+      pageSizeOptions:['5','10','20','30','40'],
+      pageSize:5
+    }
   }
+  //控制是否分页
+  handleToggle = (prop) => {
+    return (enable) => {
+      this.setState({ [prop]: enable?{
+        showSizeChanger:true,
+        showQuickJumper:true,
+        pageSizeOptions:['5','10','20','30','40'],
+        pageSize:5
 
+      }: enable});
+    };
+  }
   //onChange回调，将搜索的关键字记录到state
   onInputChange = (e) => {
     this.setState({ searchText: e.target.value });
@@ -118,7 +138,6 @@ class BaseInfo extends Component {
           return null;
         }
         //否则，返回该条记录，并将记录中的name属性
-        //万用表 用   万 表   [万,[用，表]]
         return {
           ...record,
           name: (
@@ -131,6 +150,10 @@ class BaseInfo extends Component {
         };
       }).filter(record => !!record),
     });
+  }
+  //处理根据日期筛选
+  handleDateChange = () => {
+    console.log("yigaibian");
   }
   render() {
     //设定表头信息
@@ -185,7 +208,7 @@ class BaseInfo extends Component {
       title: '规格型号',
       dataIndex: 'model',
       key: 'model'
-    },{
+    }, {
       title: 'P/N',
       dataIndex: 'P/N',
       key: 'P/N'
@@ -194,6 +217,22 @@ class BaseInfo extends Component {
       dataIndex: 'SN',
       Key: 'SN'
     }, {
+      title: '购置日期',
+      dataIndex: 'date',
+      key: 'date',
+      filterDropdown: (
+        <div ref={ele => this.dateArea = ele}>
+          <RangePicker getCalendarContainer={ (trigger) => this.dateArea}/>
+        </div>
+      ),
+      filterIcon: <Icon  type="search"/>,
+      filterDropdownVisible: this.state.dateFilterDropdownVisible,
+      onFilterDropdownVisibleChange: (visible) => {
+        this.setState({
+          dateFilterDropdownVisible: visible,
+        });
+      },
+    }, {
       title: '原值',
       dataIndex: 'price',
       key: 'price'
@@ -201,10 +240,6 @@ class BaseInfo extends Component {
       title: '账面数量',
       dataIndex: 'amount',
       key: 'amount'
-    }, {
-      title: '购置日期',
-      dataIndex: 'date',
-      key: 'date'
     }, {
       title: '备注',
       dataIndex: 'remark',
@@ -235,17 +270,14 @@ class BaseInfo extends Component {
           <Link to="/asset/baseInfo/addBase"><CustomButton color="#0099ff"><Icon type="plus-circle"/>{"   "}增加</CustomButton></Link>
           <CustomButton color="#49D21C"><Icon type="login"/>{"   "}导入</CustomButton>
           <CustomButton color="#49D21C"><Icon type="logout"/>{"   "}导出</CustomButton>
+          &nbsp;&nbsp;&nbsp;开启/关闭 分页功能&nbsp;<Switch checked={!!this.state.pagination} onChange={this.handleToggle('pagination')} />
         </div>
+        
         <Table 
           columns={columns} 
           dataSource={this.state.data} 
           bordered 
-          pagination={{
-            showSizeChanger:true,
-            showQuickJumper:true,
-            pageSizeOptions:['5','10','20','30','40'],
-            pageSize:5
-          }} 
+          pagination={this.state.pagination}
           scroll={{ x: 1600 }} 
         />
       </div>

@@ -24,14 +24,14 @@ class BaseFrom extends Component {
     const formItemLayout = {
       labelCol: {
         xs: { span: 24 },
-        sm: { span: 3 },
-        md: { span: 3 },
-        lg: { span: 2 },
+        sm: { span: 5 },
+        md: { span: 4 },
+        lg: { span: 3 },
         color: "red"
       },
       wrapperCol: {
         xs: { span: 24 },
-        sm: { span: 14 }
+        sm: { span: 15 }
       },
     };
     const tailFormItemLayout = {
@@ -66,6 +66,10 @@ class BaseFrom extends Component {
         <FormItem
           {...formItemLayout}
           label="资产类型"
+          wrapperCol= {{
+            xs: { span: 24 },
+            sm: { span: 4 }
+          }}
           hasFeedback
         >
           {getFieldDecorator('type',{
@@ -73,7 +77,7 @@ class BaseFrom extends Component {
               required:true, message: '请选择资产类型',
             }],
           })(
-            <Select >
+            <Select>
               <Option value="office">办公设备</Option>
               <Option value="maintenance">维护工具</Option>
               <Option value="instrument">仪器仪表</Option>
@@ -121,7 +125,6 @@ class BaseFrom extends Component {
         >
           <Button type="primary" htmlType="submit">保存</Button>
         </FormItem>
-        
       </Form>
     );
   }

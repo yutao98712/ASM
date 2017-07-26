@@ -19,7 +19,7 @@ class HomePage extends Component {
         <HeaderLogo />
         <Layout>
           <Sider style={{ overflow: 'auto', height: '100vh'}}>
-            <SideNav />
+            <SideNav/>
           </Sider>
           <Layout style={{ height:"100vh" }}>
             <Header style={{ background: '#fff', padding: 0 }}>
