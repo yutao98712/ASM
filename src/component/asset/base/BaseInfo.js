@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import styled from "styled-components";
-import Title from '../custom/Title';
+import Title from '../../custom/Title';
+import CustomButton from '../../custom/CustomButton';
+import CustomFilterDropdown from '../../custom/CustomFilterDropdown'
 import moment from 'moment';
 import {
   Link
@@ -17,36 +18,9 @@ import {
 } from 'antd';
 const RangePicker = DatePicker.RangePicker;
 
-const CustomFilterDropdown = styled.div`
-  padding: 8px;
-  border-radius: 6px;
-  background: #fff;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, .2);
-  input {
-    width: 130px;
-    margin-right: 8px;
-  }
-`
-//自定义按钮
-const CustomButton = styled.button`
-  background: #fff;
-  width: 90px;
-  height: 35px;
-  border: 1px solid #000000;
-  border-color:${props => props.color};
-  border-radius: 5px;
-  outline:none;
-  color: ${props => props.color};
-  &:hover {
-    background: ${props => props.color};
-    color: #fff;
-    cursor:pointer;
-  }
-  margin-right: 10px;
-`;
 //模拟列表信息
 const data = [];
-for(let i=0; i<46; i++){
+for(let i=0; i<20; i++){
   data.push({
     key:i,
     name: i%2===1?'万用表':"台式电脑",
@@ -54,7 +28,7 @@ for(let i=0; i<46; i++){
     model: '胜利钳形表6956B',
     SN: '092723011',
     amount: 1,
-    date: '2016/12/27',
+    date: '2017/6/'+(i+1),
     price: 169
   });  
 }
@@ -89,48 +63,64 @@ class BaseInfo extends Component {
   /**
    * filterDropdownVisible 是否显示下拉框
    * data 筛选后的数据
-   * searchText 搜索的内容
-   * filtered 是否已经筛选
+   * searchText 搜索的内容(name)
+   * filtered 是否已经筛选(name)
+   * pagination 分页具体属性
+   * dataRange  记录日期选择器数据
+   * filteredInfo 控制筛选信息（非自定义），重置筛选时用到
    */
-
   state = {
     filterDropdownVisible: false,
     dateFilterDropdownVisible:false,
     data,
     searchText: '',
-    filtered:false ,
+    filtered: false ,
     pagination: {
       showSizeChanger:true,
       showQuickJumper:true,
       pageSizeOptions:['5','10','20','30','40'],
-      pageSize:5
-    }
+      defaultPageSize:5
+    },
+    dateRange: null,
+    filteredInfo: null,
+  }
+  //表格改变事件回调
+  handleTableChange = (pagination,filters,sorter) => {
+    this.setState({filteredInfo:filters});
+  }
+  //清除筛选（非自定义）
+  clearFilters = () => {
+    this.setState({ 
+      filteredInfo: null,
+      data
+    });
   }
   //控制是否分页
   handleToggle = (prop) => {
     return (enable) => {
-      this.setState({ [prop]: enable?{
+      this.setState({ [prop]: enable? {
         showSizeChanger:true,
         showQuickJumper:true,
         pageSizeOptions:['5','10','20','30','40'],
-        pageSize:5
-
-      }: enable});
+        defaultPageSize:5
+      } : enable});
     };
   }
+
   //onChange回调，将搜索的关键字记录到state
   onInputChange = (e) => {
     this.setState({ searchText: e.target.value });
   }
+
   //点击搜索按钮的回调，返回筛选出的数据
-  onSearch = () => {
+  onNameSearch = () => {
     const { searchText } = this.state;
     //创建正则，全局匹配，忽略大小写
     const reg = new RegExp(searchText, 'gi');
-    this.setState({
+    this.setState((prevState) =>({
       filterDropdownVisible: false,
       filtered: !!searchText,
-      data: data.map((record) => {
+      data: prevState.data.map((record) => {
         //将该条记录对应的相应字段记录到match中
         const match = record.name.match(reg);
         //如果不匹配，则return null
@@ -139,23 +129,42 @@ class BaseInfo extends Component {
         }
         //否则，返回该条记录，并将记录中的name属性
         return {
-          ...record,
-          name: (
-            <span>
-              {record.name.split(reg).map((text, i)=> (
-                i > 0 ? [<span style={{ color: "#f50" }}>{match[0]}</span>, text] : text
-              ))}
-            </span>
-          ),
+          ...record
         };
       }).filter(record => !!record),
-    });
+    }));
   }
-  //处理根据日期筛选
-  handleDateChange = () => {
-    console.log("yigaibian");
+
+  //日期搜索改变值回调
+  onDateChange = (value, dateString) => {
+    this.setState({
+      dateRange: !!dateString[0]?dateString:null,
+    })
+    
   }
+
+  //日期搜索按钮回调
+  onDateSearch = () => {
+    this.setState((prevState) => ({
+      dateFilterDropdownVisible: false,
+       search: {
+        ...prevState.search,
+        dateRange:1
+      },
+      data: prevState.data.map(record => {
+        if(!!this.state.dateRange){
+          return moment(record.date,"YYYY-MM-DD").isBetween(this.state.dateRange[0],this.state.dateRange[1])? record:null; 
+        }else {
+          return record;
+        }
+      }).filter(record => !!record)
+    })); 
+  
+  }
+
   render() {
+    let { filteredInfo } = this.state;
+    filteredInfo = filteredInfo || {};
     //设定表头信息
     const columns = [{
       title: '资产名称',
@@ -171,9 +180,9 @@ class BaseInfo extends Component {
             placeholder="请填入搜索名称"
             value={this.state.searchText}
             onChange={this.onInputChange}
-            onPressEnter={this.onSearch}
+            onPressEnter={this.onNameSearch}
           />
-          <Button type="primary" onClick={this.onSearch}>搜索</Button>
+          <Button type="primary" onClick={this.onNameSearch}>搜索</Button>
         </CustomFilterDropdown>
       ),
       filterIcon: <Icon  type="search" style={{ color: this.state.filtered ? '#108ee9' : '#aaa' }}/>,
@@ -185,10 +194,6 @@ class BaseInfo extends Component {
           filterDropdownVisible: visible,
         }, () => this.searchInput.focus());
       },
-    }, {
-      title: '资产编号',
-      dataIndex: 'number',
-      key: 'number'
     }, {
       title: '资产类别',
       dataIndex: 'type',
@@ -203,7 +208,8 @@ class BaseInfo extends Component {
         text: '仪器仪表',
         value: '仪器仪表'
       }],
-      onFilter: (value, record) => record.type.indexOf(value) === 0
+      onFilter: (value, record) => record.type.indexOf(value) === 0,
+      filteredValue: filteredInfo.type || null,
     }, {
       title: '规格型号',
       dataIndex: 'model',
@@ -222,7 +228,11 @@ class BaseInfo extends Component {
       key: 'date',
       filterDropdown: (
         <div ref={ele => this.dateArea = ele}>
-          <RangePicker getCalendarContainer={ (trigger) => this.dateArea}/>
+          <RangePicker 
+            getCalendarContainer={ (trigger) => this.dateArea}
+            onChange={this.onDateChange}
+          />
+          <Button type="primary" onClick={this.onDateSearch}>搜索</Button>
         </div>
       ),
       filterIcon: <Icon  type="search"/>,
@@ -271,6 +281,7 @@ class BaseInfo extends Component {
           <CustomButton color="#49D21C"><Icon type="login"/>{"   "}导入</CustomButton>
           <CustomButton color="#49D21C"><Icon type="logout"/>{"   "}导出</CustomButton>
           &nbsp;&nbsp;&nbsp;开启/关闭 分页功能&nbsp;<Switch checked={!!this.state.pagination} onChange={this.handleToggle('pagination')} />
+          &nbsp;&nbsp;&nbsp;<Button type="primary" onClick={ this.clearFilters }>重置筛选</Button>
         </div>
         
         <Table 
@@ -278,7 +289,8 @@ class BaseInfo extends Component {
           dataSource={this.state.data} 
           bordered 
           pagination={this.state.pagination}
-          scroll={{ x: 1600 }} 
+          scroll={{ x: 1600 }}
+          onChange={this.handleTableChange}
         />
       </div>
     )
@@ -286,3 +298,4 @@ class BaseInfo extends Component {
 }
 
 export default BaseInfo;
+

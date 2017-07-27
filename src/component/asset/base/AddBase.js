@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
-import { Form, Input, Icon, Cascader, Select, Row, Col, Checkbo, Button, InputNumber, DatePicker} from 'antd';
-import Title from '../custom/Title';
+import { Form, Input, Select, Button, InputNumber, DatePicker} from 'antd';
+import Title from '../../custom/Title';
 const FormItem = Form.Item;
 const Option = Select.Option;
 
 class BaseFrom extends Component {
-  state = {
-    confirmDirty:false,
-    AutoCompleteResult: [],
-  };
-
+ 
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
@@ -27,7 +23,6 @@ class BaseFrom extends Component {
         sm: { span: 5 },
         md: { span: 4 },
         lg: { span: 3 },
-        color: "red"
       },
       wrapperCol: {
         xs: { span: 24 },

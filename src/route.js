@@ -4,8 +4,8 @@ import {
   Route
 } from 'react-router-dom';
 import LazyLoader from './LazyLoader';
-import loadBase from 'bundle-loader?lazy!./component/asset/BaseInfo';
-import AddBase from './component/asset/AddBase';
+import loadBase from 'bundle-loader?lazy!./component/asset/base/BaseInfo';
+import AddBase from './component/asset/base/AddBase';
 import HomePage from './component/Home';
 import UserCenter from './component/management/UserCenter';
 import Detail from './component/management/Detail';
