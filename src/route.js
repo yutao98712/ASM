@@ -1,83 +1,95 @@
-import React, { Component } from 'react';
-import {
-  HashRouter as Router,
-  Route
-} from 'react-router-dom';
-import LazyLoader from './LazyLoader';
-import loadBase from 'bundle-loader?lazy!./component/asset/base/BaseInfo';
-import AddBase from './component/asset/base/AddBase';
-import HomePage from './component/Home';
-import UserCenter from './component/management/UserCenter';
-import Detail from './component/management/Detail';
-import WrappedLoginForm from './component/LoginForm';
-
-const BaseInfo = (props) => (
+import React, { Component } from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import LazyLoader from "./LazyLoader";
+import loadBase from "bundle-loader?lazy!./component/asset/base/BaseInfo";
+import AddBase from "./component/asset/base/AddBase";
+import HomePage from "./component/Home";
+import UserCenter from "./component/management/UserCenter";
+import WrappedLoginForm from "./component/LoginForm";
+import AuxiliaryInfo from "./component/asset/auxiliary/AuxiliaryInfo";
+import TransferredInfo from "./component/asset/transfers/TransferredInfo";
+import StatusInfo from './component/asset/statusInfo/StatusInfo';
+import MaintainInfo from './component/asset/maintain/MaintainInfo';
+const BaseInfo = props =>
   <LazyLoader load={loadBase}>
-    {(BaseInfo) => <BaseInfo {...props}/>}
-  </LazyLoader>
-)
+    {BaseInfo => <BaseInfo {...props} />}
+  </LazyLoader>;
 
 const routes = [
-  { path: '/asset',
+  {
+    path: "/asset",
     component: HomePage,
     exact: false,
     routes: [
-      { path: '/asset/baseInfo',
+      {
+        path: "/asset/baseInfo",
         component: BaseInfo,
         exact: true
       },
-      { path: '/asset/baseInfo/addBase',
+      {
+        path: "/asset/baseInfo/addBase",
         component: AddBase,
         exact: true
       },
-      { path: '/asset/Detail',
-        component: Detail,
+      {
+        path: "/asset/auxiliaryInfo",
+        component: AuxiliaryInfo,
+        exact: true
+      },
+      {
+        path: "/asset/transferredInfo",
+        component: TransferredInfo,
+        exact: true
+      },
+      {
+        path: "/asset/statusInfo",
+        component: StatusInfo,
+        exact: true
+      },
+      {
+        path: "/asset/MaintainInfo",
+        component: MaintainInfo,
         exact: true
       }
     ]
   },
-  { path:'/userCenter',
+  {
+    path: "/userCenter",
     component: UserCenter,
     exact: false
   },
   {
-    path:'/login',
+    path: "/login",
     component: WrappedLoginForm,
     exact: true
   }
 ];
 
-export const RouteWithSubRoutes = (route) => (
-  <Route 
-    path={route.path} 
+export const RouteWithSubRoutes = route =>
+  <Route
+    path={route.path}
     exact={route.exact}
-    render={props => (
-      <route.component {...props} routes={route.routes} />
-    )}
-  />
-)
+    render={props => <route.component {...props} routes={route.routes} />}
+  />;
 
-class RouterConfig extends Component{
+class RouterConfig extends Component {
   render() {
-    const routers = routes.map((route, i) => (
-      <Route 
+    const routers = routes.map((route, i) =>
+      <Route
         path={route.path}
         exact={route.exact}
-        render={props => (
-          <route.component {...props} routes={route.routes} />
-        )} 
+        render={props => <route.component {...props} routes={route.routes} />}
         key={i}
       />
-    ));
+    );
     return (
       <Router>
         <div>
-          { routers }        
+          {routers}
         </div>
       </Router>
-    )
+    );
   }
 }
 
 export default RouterConfig;
-

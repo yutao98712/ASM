@@ -9,5 +9,5 @@ const CustomFilterDropdown = styled.div`
     width: 130px;
     margin-right: 8px;
   }
-`
+`;
 export default CustomFilterDropdown;

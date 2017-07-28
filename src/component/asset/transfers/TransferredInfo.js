@@ -7,21 +7,19 @@ for (let i = 0; i < 20; i++) {
   data.push({
     key: i,
     name: i % 2 === 1 ? "万用表" : "台式电脑",
-    number: "A254378",
-    useDate: "2016/5/30",
-    life: i % 2 === 1 ? 3 : 5,
-    discount: 0,
-    depreciation: 0,
-    net: 0,
-    department: "研发中心",
-    location: "仓库",
-    audiator: "张三",
-    custodian: "李四",
+    transferredDept: "研发中心",
+    receivedDept: "财务部",
+    transferredDate: "2016/5/30",
+    purpose: "借用",
+    property: "短期借用",
+    mode: "人员随带",
+    transferredHandler: "张三",
+    receivedHandler: "李四",
     remark: "模拟数据"
   });
 }
 
-class AuxiliaryInfo extends Component {
+class TransferredsInfo extends Component {
   render() {
     const columns = [
       {
@@ -41,54 +39,44 @@ class AuxiliaryInfo extends Component {
         //自定义筛选菜单，此函数之负责渲染图层
       },
       {
-        title: "资产编号",
-        dataIndex: "number",
-        key: "number"
+        title: "调出部门",
+        dataIndex: "transferredDept",
+        key: "transferredDept"
       },
       {
-        title: "使用日期",
-        dataIndex: "useDate",
-        key: "useDate"
+        title: "调入部门",
+        dataIndex: "receivedDept",
+        key: "receivedDept"
       },
       {
-        title: "折旧年限",
-        dataIndex: "life",
-        key: "life"
+        title: "调出日期",
+        dataIndex: "transferredDate",
+        key: "transferredDate"
       },
       {
-        title: "年折旧额",
-        dataIndex: "discount",
-        key: "discount"
+        title: "用途",
+        dataIndex: "purpose",
+        key: "purpose"
       },
       {
-        title: "累计折旧",
-        dataIndex: "depreciation",
-        key: "depreciation"
+        title: "调用性质",
+        dataIndex: "property",
+        key: "property"
       },
       {
-        title: "净值",
-        dataIndex: "net",
-        key: "net"
+        title: "调出方式",
+        dataIndex: "mode",
+        key: "mode"
       },
       {
-        title: "所在公司或部门",
-        dataIndex: "department",
-        key: "department"
+        title: "经办人",
+        dataIndex: "transferredHandler",
+        key: "transferredHandler"
       },
       {
-        title: "所在区域",
-        dataIndex: "location",
-        key: "location"
-      },
-      {
-        title: "审核人",
-        dataIndex: "audiator",
-        key: "autiator"
-      },
-      {
-        title: "保管人",
-        dataIndex: "custodian",
-        key: "custodian"
+        titl: "接受人",
+        dataIndex: "receivedHandler",
+        key: "receivedHandler"
       },
       {
         title: "备注",
@@ -99,19 +87,21 @@ class AuxiliaryInfo extends Component {
         title: "操作",
         key: "action",
         fixed: "right",
-        width: 150,
+        width: 200,
         render: () =>
           <span>
             <Link to="/">编辑</Link>
             <span className="ant-divider" />
             <Link to="/">删除</Link>
+            <span className="ant-divider" />
+            <Link to="/">证明材料</Link>
           </span>
       }
     ];
 
     return (
       <div>
-        <Title>资产辅助信息列表</Title>
+        <Title>资产调拨信息列表</Title>
         <Table
           columns={columns}
           dataSource={data}
@@ -123,4 +113,4 @@ class AuxiliaryInfo extends Component {
   }
 }
 
-export default AuxiliaryInfo;
+export default TransferredsInfo;

@@ -8,7 +8,7 @@ class UpdateBase extends Component {
   render() {
     const { getFieldDecorator } = this.props.form;
     return (
-
+      <div></div>
     )
   }
 }

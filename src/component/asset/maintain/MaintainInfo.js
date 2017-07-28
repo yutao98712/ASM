@@ -7,21 +7,17 @@ for (let i = 0; i < 20; i++) {
   data.push({
     key: i,
     name: i % 2 === 1 ? "万用表" : "台式电脑",
-    number: "A254378",
-    useDate: "2016/5/30",
-    life: i % 2 === 1 ? 3 : 5,
-    discount: 0,
-    depreciation: 0,
-    net: 0,
-    department: "研发中心",
-    location: "仓库",
-    audiator: "张三",
-    custodian: "李四",
+    date: "2017/7/14",
+    cause: "设备故障（排查中）",
+    process: "换了零件",
+    person: "李四",
+    price: 100.00,
+    handler: "张三",
     remark: "模拟数据"
   });
 }
 
-class AuxiliaryInfo extends Component {
+class MaintainInfo extends Component {
   render() {
     const columns = [
       {
@@ -41,54 +37,34 @@ class AuxiliaryInfo extends Component {
         //自定义筛选菜单，此函数之负责渲染图层
       },
       {
-        title: "资产编号",
-        dataIndex: "number",
-        key: "number"
+        title: "维修日期",
+        dataIndex: "date",
+        key: "date"
       },
       {
-        title: "使用日期",
-        dataIndex: "useDate",
-        key: "useDate"
+        title: "维修原因",
+        dataIndex: "cause",
+        key: "cause"
       },
       {
-        title: "折旧年限",
-        dataIndex: "life",
-        key: "life"
+        title: "维修过程",
+        dataIndex: "process",
+        key: "process"
       },
       {
-        title: "年折旧额",
-        dataIndex: "discount",
-        key: "discount"
+        title: "维修人",
+        dataIndex: "person",
+        key: "person"
       },
       {
-        title: "累计折旧",
-        dataIndex: "depreciation",
-        key: "depreciation"
+        title: "维修费用",
+        dataIndex: "price",
+        key: "price"
       },
       {
-        title: "净值",
-        dataIndex: "net",
-        key: "net"
-      },
-      {
-        title: "所在公司或部门",
-        dataIndex: "department",
-        key: "department"
-      },
-      {
-        title: "所在区域",
-        dataIndex: "location",
-        key: "location"
-      },
-      {
-        title: "审核人",
-        dataIndex: "audiator",
-        key: "autiator"
-      },
-      {
-        title: "保管人",
-        dataIndex: "custodian",
-        key: "custodian"
+        title: "经办人",
+        dataIndex: "handler",
+        key: "handler"
       },
       {
         title: "备注",
@@ -99,19 +75,21 @@ class AuxiliaryInfo extends Component {
         title: "操作",
         key: "action",
         fixed: "right",
-        width: 150,
+        width: 200,
         render: () =>
           <span>
             <Link to="/">编辑</Link>
             <span className="ant-divider" />
             <Link to="/">删除</Link>
+            <span className="ant-divider" />
+            <Link to="/">证明材料</Link>
           </span>
       }
     ];
 
     return (
       <div>
-        <Title>资产辅助信息列表</Title>
+        <Title>资产维修信息列表</Title>
         <Table
           columns={columns}
           dataSource={data}
@@ -123,4 +101,4 @@ class AuxiliaryInfo extends Component {
   }
 }
 
-export default AuxiliaryInfo;
+export default MaintainInfo;
