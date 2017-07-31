@@ -13,7 +13,6 @@ import {
   Input,
   Menu,
   Dropdown,
-  Switch,
   DatePicker
 } from "antd";
 const RangePicker = DatePicker.RangePicker;
@@ -217,7 +216,6 @@ class BaseInfo extends Component {
         key: "key",
         fixed: "left",
         width: 100
-        //自定义筛选菜单，此函数之负责渲染图层
       },
       {
         title: "资产名称",
@@ -225,7 +223,6 @@ class BaseInfo extends Component {
         key: "name",
         fixed: "left",
         width: 100,
-        //自定义筛选菜单，此函数之负责渲染图层
         filterDropdown: (
           <CustomFilterDropdown>
             <Input

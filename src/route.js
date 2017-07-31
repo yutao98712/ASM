@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import LazyLoader from "./LazyLoader";
-import loadBase from "bundle-loader?lazy!./component/asset/base/BaseInfo";
+import loadBase from "bundle-loader?lazy!./component/asset/InfoContainer";
 import AddBase from "./component/asset/base/AddBase";
 import HomePage from "./component/Home";
 import UserCenter from "./component/management/UserCenter";
 import WrappedLoginForm from "./component/LoginForm";
 import AuxiliaryInfo from "./component/asset/auxiliary/AuxiliaryInfo";
 import TransferredInfo from "./component/asset/transfers/TransferredInfo";
-import StatusInfo from './component/asset/statusInfo/StatusInfo';
-import MaintainInfo from './component/asset/maintain/MaintainInfo';
+import StatusInfo from "./component/asset/statusInfo/StatusInfo";
+import MaintainInfo from "./component/asset/maintain/MaintainInfo";
 const BaseInfo = props =>
   <LazyLoader load={loadBase}>
     {BaseInfo => <BaseInfo {...props} />}
