@@ -69,7 +69,7 @@ const SideNav = props =>
     >
       <Menu.Item key="7">
         <Icon type="contacts" />
-        <span className="nav-text">账户管理</span>
+        <span className="nav-text">用户管理</span>
       </Menu.Item>
       <Menu.Item key="8">
         <Icon type="key" />

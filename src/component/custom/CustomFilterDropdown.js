@@ -1,5 +1,6 @@
+import React from "react";
 import styled from "styled-components";
-
+import { Input, Button } from "antd";
 const CustomFilterDropdown = styled.div`
   padding: 8px;
   border-radius: 6px;
@@ -10,4 +11,28 @@ const CustomFilterDropdown = styled.div`
     margin-right: 8px;
   }
 `;
-export default CustomFilterDropdown;
+
+const FilterDropdownPresnt = ({ searchText, onInputChange, onNameSearch, searchItem}) =>(
+  <CustomFilterDropdown>
+    <Input
+      placeholder="请填入搜索名称"
+      value={searchText}
+      onChange={onInputChange}
+      onPressEnter={
+        () => onNameSearch(searchItem)
+      }
+    />
+    <Button
+      type="primary"
+      onClick={() => {
+        onNameSearch(searchItem);
+      }}
+    >
+      搜索
+    </Button>
+  </CustomFilterDropdown>
+);
+
+export default FilterDropdownPresnt;
+  
+

@@ -1,33 +1,10 @@
-import React from "react";
-import Title from "../../custom/Title";
-import CustomButton from "../../custom/CustomButton";
+import React from 'react';
 import FilterDropdownPresnt  from "../../custom/CustomFilterDropdown";
-import { CSVLink } from "react-csv";
+import { Icon, Button, Input, Menu, Dropdown, DatePicker, Popconfirm, InputNumber } from "antd";
 import { Link } from "react-router-dom";
-import { Table, Icon, Button, Input, Menu, Dropdown, DatePicker, Popconfirm, InputNumber } from "antd";
-import PropTypes from 'prop-types';
 const InputGroup = Input.Group;
 const RangePicker = DatePicker.RangePicker;
-
-const BaseInfo = ({
-  searchText,
-  onInputChange,
-  onNameSearch,
-  filtered,
-  filterDropdownVisible,
-  onFilterDropdownVisibleChange,
-  filteredInfo,
-  onDateChange,
-  onDateSearch,
-  dateFilterDropdownVisible,
-  dateFilterDropdownVisibleChange,
-  clearFilters,
-  data,
-  pagination,
-  handleTableChange,
-  output,
-}) => {
-  const menu = (
+const menu = (
     <Menu>
       <Menu.Item>
         <Link to="/">实物图片</Link>
@@ -52,7 +29,7 @@ const BaseInfo = ({
       </Menu.Item>
     </Menu>
   );
-  const columns = [
+const columns = [
     {
       title: "资产ID",
       dataIndex: "id",
@@ -228,56 +205,3 @@ const BaseInfo = ({
         </span>
     }
   ];
-  return (
-    <div>
-      <Title>资产基本信息列表</Title>
-      <div style={{ padding: "20px 0" }}>
-        <Link to="/asset/baseInfo/addBase">
-          <CustomButton color="#0099ff">
-            <Icon type="plus-circle" /> 增加
-          </CustomButton>
-        </Link>
-        <CustomButton color="#49D21C">
-          <Icon type="login" /> 导入
-        </CustomButton>
-        <CSVLink data={output()} target="_blank">
-          <CustomButton color="#49D21C">
-            <Icon type="logout" /> 导出
-          </CustomButton>
-        </CSVLink>
-        &nbsp;&nbsp;&nbsp;<Button type="primary" onClick={clearFilters}>
-          重置筛选
-        </Button>
-      </div>
-      <Table
-        columns={columns}
-        dataSource={data}
-        bordered
-        pagination={pagination}
-        scroll={{ x: 1600 }}
-        onChange={handleTableChange}
-      />
-    </div>
-  );
-};
-
-BaseInfo.propTypes = {
-  searchText: PropTypes.string.isRequired,
-  onInputChange: PropTypes.func.isRequired,
-  onNameSearch: PropTypes.func.isRequired,
-  filtered: PropTypes.bool.isRequired,
-  filterDropdownVisible: PropTypes.bool.isRequired,
-  onFilterDropdownVisibleChange: PropTypes.func.isRequired,
-  filteredInfo: PropTypes.object.isRequired,
-  onDateChange: PropTypes.func.isRequired,
-  onDateSearch: PropTypes.func.isRequired,
-  dateFilterDropdownVisible: PropTypes.bool.isRequired,
-  dateFilterDropdownVisibleChange: PropTypes.func.isRequired,
-  clearFilters: PropTypes.func.isRequired,
-  data: PropTypes.array.isRequired,
-  pagination: PropTypes.object.isRequired,
-  handleTableChange: PropTypes.func.isRequired,
-  output: PropTypes.func.isRequired
-}
-
-export default BaseInfo;

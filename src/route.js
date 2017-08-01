@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import LazyLoader from "./LazyLoader";
 import loadBase from "bundle-loader?lazy!./component/asset/InfoContainer";
 import AddBase from "./component/asset/base/AddBase";
+import EditBase from "./component/asset/base/EditBase";
 import HomePage from "./component/Home";
 import UserCenter from "./component/management/UserCenter";
 import WrappedLoginForm from "./component/LoginForm";
@@ -29,6 +30,11 @@ const routes = [
       {
         path: "/asset/baseInfo/addBase",
         component: AddBase,
+        exact: true
+      },
+      {
+        path: "/asset/baseInfo/editBase/:id",
+        component: EditBase,
         exact: true
       },
       {

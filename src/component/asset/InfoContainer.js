@@ -5,7 +5,7 @@ import BaseInfoPresent from './base/BaseInfoPresent';
 const data = [];
 for (let i = 0; i < 20; i++) {
   data.push({
-    key: i,
+    id: i,
     name: i % 2 === 1 ? "万用表" : "台式电脑",
     type: i % 2 === 1 ? "维护工具" : "办公设备",
     model: "胜利钳形表6956B",
@@ -13,7 +13,8 @@ for (let i = 0; i < 20; i++) {
     amount: 1,
     date: "2017/6/" + (i + 1),
     price: 169,
-    remark: "模拟数据"
+    remark: "模拟数据",
+    pn:""
   });
 }
 
@@ -108,7 +109,6 @@ const InfoContainer = (WrappedComponent, data) => {
 
     //日期搜索改变值回调
     onDateChange = (value, dateString) => {
-      console.log(dateString);
       this.setState({
         dateRange: !!dateString[0] ? dateString : null
       });
@@ -200,7 +200,7 @@ const InfoContainer = (WrappedComponent, data) => {
       filteredInfo = filteredInfo || {};
       return (
         <WrappedComponent
-          data={this.state.data}
+          data={this.state.data} 
           searchText={searchText}
           onInputChange={this.onInputChange}
           onNameSearch={this.onNameSearch}
