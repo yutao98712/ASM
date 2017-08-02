@@ -68,8 +68,10 @@ const SideNav = props =>
       }
     >
       <Menu.Item key="7">
-        <Icon type="contacts" />
-        <span className="nav-text">用户管理</span>
+        <Link to="/asset/userInfo">
+          <Icon type="contacts" />
+          <span className="nav-text">用户管理</span>
+        </Link>
       </Menu.Item>
       <Menu.Item key="8">
         <Icon type="key" />

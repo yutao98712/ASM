@@ -1,16 +1,19 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import LazyLoader from "./LazyLoader";
-import loadBase from "bundle-loader?lazy!./component/asset/InfoContainer";
+import loadBase from "bundle-loader?lazy!./component/asset/base/BaseInfoPresent";
 import AddBase from "./component/asset/base/AddBase";
 import EditBase from "./component/asset/base/EditBase";
 import HomePage from "./component/Home";
 import UserCenter from "./component/management/UserCenter";
 import WrappedLoginForm from "./component/LoginForm";
-import AuxiliaryInfo from "./component/asset/auxiliary/AuxiliaryInfo";
+import Auxiliary from "./component/asset/auxiliary/AuxiliaryInfo";
+import AddAuxiliary from "./component/asset/auxiliary/AddAuxiliary";
+import EditAuxiliary from './component/asset/auxiliary/EditAuxiliary';
 import TransferredInfo from "./component/asset/transfers/TransferredInfo";
 import StatusInfo from "./component/asset/statusInfo/StatusInfo";
 import MaintainInfo from "./component/asset/maintain/MaintainInfo";
+import Users from "./component/asset/users/usersInfo";
 const BaseInfo = props =>
   <LazyLoader load={loadBase}>
     {BaseInfo => <BaseInfo {...props} />}
@@ -39,7 +42,17 @@ const routes = [
       },
       {
         path: "/asset/auxiliaryInfo",
-        component: AuxiliaryInfo,
+        component: Auxiliary,
+        exact: true
+      },
+      {
+        path: "/asset/AddAuxiliary/:id",
+        component: AddAuxiliary,
+        exact: true
+      },
+      {
+        path: "/asset/editAuxiliary/:id",
+        component: EditAuxiliary,
         exact: true
       },
       {
@@ -55,6 +68,11 @@ const routes = [
       {
         path: "/asset/MaintainInfo",
         component: MaintainInfo,
+        exact: true
+      },
+      {
+        path: "/asset/userInfo",
+        component: Users,
         exact: true
       }
     ]

@@ -1,13 +1,55 @@
 import React from "react";
 import Title from "../../custom/Title";
 import CustomButton from "../../custom/CustomButton";
-import FilterDropdownPresnt  from "../../custom/CustomFilterDropdown";
+import FilterDropdownPresnt from "../../custom/CustomFilterDropdown";
 import { CSVLink } from "react-csv";
 import { Link } from "react-router-dom";
-import { Table, Icon, Button, Input, Menu, Dropdown, DatePicker, Popconfirm, InputNumber } from "antd";
-import PropTypes from 'prop-types';
+import {
+  Table,
+  Icon,
+  Button,
+  Input,
+  Menu,
+  Dropdown,
+  DatePicker,
+  Popconfirm,
+  InputNumber
+} from "antd";
+import PropTypes from "prop-types";
+import InfoContainer from "../InfoContainer";
 const InputGroup = Input.Group;
 const RangePicker = DatePicker.RangePicker;
+
+//处理表格数据，便于导出
+const output = (data) => {
+  let dataArray = [];
+  dataArray.push([
+    "资产名称",
+    "资产类型",
+    "规格型号",
+    "P/N",
+    "S/N",
+    "购置日期",
+    "原值",
+    "账面数量",
+    "备注"
+  ]);
+  for (let i = 0; i < data.length; i++) {
+    let dataItem = data[i];
+    dataArray.push([
+      !!dataItem.name ? dataItem.name : "",
+      !!dataItem.type ? dataItem.type : "",
+      !!dataItem.model ? dataItem.model : "",
+      !!dataItem.pn ? dataItem.pn : "",
+      !!dataItem.sn ? dataItem.sn : "",
+      !!dataItem.date ? dataItem.date : "",
+      !!dataItem.price ? dataItem.price : "",
+      !!dataItem.amount ? dataItem.amount : "",
+      !!dataItem.remark ? dataItem.remark : ""
+    ]);
+  }
+  return dataArray;
+};
 
 const BaseInfo = ({
   searchText,
@@ -25,33 +67,7 @@ const BaseInfo = ({
   data,
   pagination,
   handleTableChange,
-  output,
 }) => {
-  const menu = (
-    <Menu>
-      <Menu.Item>
-        <Link to="/">实物图片</Link>
-      </Menu.Item>
-      <Menu.Item>
-        <Link to="/">发票</Link>
-      </Menu.Item>
-      <Menu.Item>
-        <Link to="/">完善辅助信息</Link>
-      </Menu.Item>
-      <Menu.Item>
-        <Link to="/">完善调拨信息</Link>
-      </Menu.Item>
-      <Menu.Item>
-        <Link to="/">资产现状</Link>
-      </Menu.Item>
-      <Menu.Item>
-        <Link to="/">设备维修</Link>
-      </Menu.Item>
-      <Menu.Item>
-        <Link to="/">完善处置信息</Link>
-      </Menu.Item>
-    </Menu>
-  );
   const columns = [
     {
       title: "资产ID",
@@ -67,7 +83,7 @@ const BaseInfo = ({
       fixed: "left",
       width: 100,
       filterDropdown: (
-        <FilterDropdownPresnt 
+        <FilterDropdownPresnt
           onInputChange={onInputChange}
           onNameSearch={onNameSearch}
           searchItem="name"
@@ -86,6 +102,7 @@ const BaseInfo = ({
       title: "资产类别",
       dataIndex: "type",
       key: "type",
+      width: 150,
       filters: [
         {
           text: "维护工具",
@@ -107,72 +124,71 @@ const BaseInfo = ({
       title: "规格型号",
       dataIndex: "model",
       key: "model",
+      width: 150,
       filterDropdown: (
-        <FilterDropdownPresnt 
+        <FilterDropdownPresnt
           onInputChange={onInputChange}
           onNameSearch={onNameSearch}
           searchItem="model"
           searchText={searchText}
         />
       ),
-      filterIcon: (
-        <Icon type="search" style={{ color: "#aaa" }} />
-      ),
+      filterIcon: <Icon type="search" style={{ color: "#aaa" }} />
     },
     {
       title: "P/N",
       dataIndex: "pn",
       key: "pn",
+      width: 150,
       filterDropdown: (
-        <FilterDropdownPresnt 
+        <FilterDropdownPresnt
           onInputChange={onInputChange}
           onNameSearch={onNameSearch}
           searchItem="pn"
           searchText={searchText}
         />
       ),
-      filterIcon: (
-        <Icon type="search" style={{ color: "#aaa" }} />
-      ),
+      filterIcon: <Icon type="search" style={{ color: "#aaa" }} />
     },
     {
       title: "S/N",
       dataIndex: "sn",
       Key: "sn",
+      width: 150,
       filterDropdown: (
-        <FilterDropdownPresnt 
+        <FilterDropdownPresnt
           onInputChange={onInputChange}
           onNameSearch={onNameSearch}
           searchItem="sn"
           searchText={searchText}
         />
       ),
-      filterIcon: (
-        <Icon type="search" style={{ color: "#aaa" }} />
-      ),
+      filterIcon: <Icon type="search" style={{ color: "#aaa" }} />
     },
     {
       title: "购置日期",
       dataIndex: "date",
       key: "date",
+      width: 150,
       filterDropdown: (
-        <div 
+        <div
           ref={ele => (this.dateArea = ele)}
           style={{
             padding: 8,
             borderRadius: 6,
-            background:" #fff",
-            boxShadow:" 0 1px 6px rgba(0, 0, 0, .2)"
+            background: " #fff",
+            boxShadow: " 0 1px 6px rgba(0, 0, 0, .2)"
           }}
         >
           <RangePicker
             getCalendarContainer={trigger => this.dateArea}
             onChange={onDateChange}
           />
-          <Button type="primary" 
+          <Button
+            type="primary"
             onClick={onDateSearch}
             style={{
-              marginLeft:10
+              marginLeft: 10
             }}
           >
             搜索
@@ -187,45 +203,82 @@ const BaseInfo = ({
       title: "原值",
       dataIndex: "price",
       key: "price",
-      filterDropdown:(
+      width: 150,
+      filterDropdown: (
         <InputGroup>
-          <InputNumber style={{ width: 100, textAlign: 'center' }} placeholder="最小值" />
-          <InputNumber style={{ width: 100, textAlign: 'center', borderLeft: 0 }} placeholder="最大值" />
+          <InputNumber
+            style={{ width: 100, textAlign: "center" }}
+            placeholder="最小值"
+          />
+          <InputNumber
+            style={{ width: 100, textAlign: "center", borderLeft: 0 }}
+            placeholder="最大值"
+          />
           <Button type="primary">搜索</Button>
         </InputGroup>
       ),
-      filterIcon: <Icon type="search" />,
+      filterIcon: <Icon type="search" />
     },
     {
       title: "账面数量",
       dataIndex: "amount",
-      key: "amount"
+      key: "amount",
+      width: 150
     },
     {
       title: "备注",
       dataIndex: "remark",
-      key: "remark"
+      key: "remark",
+      width: 150
     },
     {
       title: "操作",
       key: "action",
       fixed: "right",
       width: 200,
-      render: (text,record) =>
-        <span>
-          <Link to={"/asset/baseInfo/editBase/"+record.id}>编辑</Link>
-          <span className="ant-divider" />
-          <Popconfirm title="确定删除？">
-            <a>删除</a>
-          </Popconfirm>
-         
-          <span className="ant-divider" />
-          <Dropdown overlay={menu}>
-            <a className="ant-dropdown-link">
-              更多<Icon type="down" />
-            </a>
-          </Dropdown>
-        </span>
+      render: (text, record) => {
+        const menu = (
+          <Menu>
+            <Menu.Item>
+              <Link to="/">实物图片</Link>
+            </Menu.Item>
+            <Menu.Item>
+              <Link to="/">发票</Link>
+            </Menu.Item>
+            <Menu.Item>
+              <Link to={"/asset/AddAuxiliary/" + record.id}>完善辅助信息</Link>
+            </Menu.Item>
+            <Menu.Item>
+              <Link to="/">完善调拨信息</Link>
+            </Menu.Item>
+            <Menu.Item>
+              <Link to="/">资产现状</Link>
+            </Menu.Item>
+            <Menu.Item>
+              <Link to="/">设备维修</Link>
+            </Menu.Item>
+            <Menu.Item>
+              <Link to="/">完善处置信息</Link>
+            </Menu.Item>
+          </Menu>
+        );
+        return (
+          <span>
+            <Link to={"/asset/baseInfo/editBase/" + record.id}>编辑</Link>
+            <span className="ant-divider" />
+            <Popconfirm title="确定删除？">
+              <a>删除</a>
+            </Popconfirm>
+
+            <span className="ant-divider" />
+            <Dropdown overlay={menu}>
+              <a className="ant-dropdown-link">
+                更多<Icon type="down" />
+              </a>
+            </Dropdown>
+          </span>
+        );
+      }
     }
   ];
   return (
@@ -240,7 +293,7 @@ const BaseInfo = ({
         <CustomButton color="#49D21C">
           <Icon type="login" /> 导入
         </CustomButton>
-        <CSVLink data={output()} target="_blank">
+        <CSVLink data={output(data)} target="_blank">
           <CustomButton color="#49D21C">
             <Icon type="logout" /> 导出
           </CustomButton>
@@ -254,7 +307,8 @@ const BaseInfo = ({
         dataSource={data}
         bordered
         pagination={pagination}
-        scroll={{ x: 1600 }}
+        scroll={{ x: 1600, y: 300 }}
+        size="middle"
         onChange={handleTableChange}
       />
     </div>
@@ -277,7 +331,24 @@ BaseInfo.propTypes = {
   data: PropTypes.array.isRequired,
   pagination: PropTypes.object.isRequired,
   handleTableChange: PropTypes.func.isRequired,
-  output: PropTypes.func.isRequired
+};
+
+const data = [];
+for (let i = 0; i < 20; i++) {
+  data.push({
+    key: i,
+    id: i,
+    name: i % 2 === 1 ? "万用表" : "台式电脑",
+    type: i % 2 === 1 ? "维护工具" : "办公设备",
+    model: "胜利钳形表6956B",
+    sn: "092723011",
+    amount: 1,
+    date: "2017/6/" + (i + 1),
+    price: 169,
+    remark: "模拟数据",
+    pn: ""
+  });
 }
 
-export default BaseInfo;
+const BaseInfoPresent = InfoContainer(BaseInfo, data);
+export default BaseInfoPresent;

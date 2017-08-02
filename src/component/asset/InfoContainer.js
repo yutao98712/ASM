@@ -1,22 +1,5 @@
 import React, { Component } from "react";
 import moment from "moment";
-import BaseInfoPresent from './base/BaseInfoPresent';
-//模拟列表信息
-const data = [];
-for (let i = 0; i < 20; i++) {
-  data.push({
-    id: i,
-    name: i % 2 === 1 ? "万用表" : "台式电脑",
-    type: i % 2 === 1 ? "维护工具" : "办公设备",
-    model: "胜利钳形表6956B",
-    sn: "092723011",
-    amount: 1,
-    date: "2017/6/" + (i + 1),
-    price: 169,
-    remark: "模拟数据",
-    pn:""
-  });
-}
 
 const InfoContainer = (WrappedComponent, data) => {
   return class extends Component {
@@ -40,8 +23,6 @@ const InfoContainer = (WrappedComponent, data) => {
         pagination: {
           showSizeChanger: true,
           showQuickJumper: true,
-          pageSizeOptions: ["5", "10", "20", "30", "40"],
-          defaultPageSize: 5
         },
         dateRange: null,
         filteredInfo: null
@@ -51,6 +32,7 @@ const InfoContainer = (WrappedComponent, data) => {
     //表格改变事件回调
     handleTableChange = (pagination, filters, sorter) => {
       this.setState({ filteredInfo: filters });
+      console.log(filters);
     };
 
     //清除筛选（非自定义）
@@ -69,8 +51,6 @@ const InfoContainer = (WrappedComponent, data) => {
             ? {
                 showSizeChanger: true,
                 showQuickJumper: true,
-                pageSizeOptions: ["5", "10", "20", "30", "40"],
-                defaultPageSize: 5
               }
             : enable
         });
@@ -106,7 +86,6 @@ const InfoContainer = (WrappedComponent, data) => {
           .filter(record => !!record)
       }));
     };
-
     //日期搜索改变值回调
     onDateChange = (value, dateString) => {
       this.setState({
@@ -137,38 +116,6 @@ const InfoContainer = (WrappedComponent, data) => {
           })
           .filter(record => !!record)
       }));
-    };
-
-    //处理表格数据，便于导出
-    output = () => {
-      const data = this.state.data;
-      let dataArray = [];
-      dataArray.push([
-        "设备名称",
-        "资产类被",
-        "规格型号",
-        "P/N",
-        "S/N",
-        "购置日期",
-        "原值",
-        "账面数量",
-        "备注"
-      ]);
-      for (let i = 0; i < data.length; i++) {
-        let dataItem = data[i];
-        dataArray.push([
-          !!dataItem.name ? dataItem.name : "",
-          !!dataItem.type ? dataItem.type : "",
-          !!dataItem.model ? dataItem.model : "",
-          !!dataItem.pn ? dataItem.pn : "",
-          !!dataItem.sn ? dataItem.sn : "",
-          !!dataItem.date ? dataItem.date : "",
-          !!dataItem.price ? dataItem.price : "",
-          !!dataItem.amount ? dataItem.amount : "",
-          !!dataItem.remark ? dataItem.remark : ""
-        ]);
-      }
-      return dataArray;
     };
 
     //资产名称搜索下拉菜单变化时调用
@@ -215,7 +162,6 @@ const InfoContainer = (WrappedComponent, data) => {
           pagination={pagination}
           handleTableChange={this.handleTableChange}
           {...this.props}
-          output={this.output}
           dateFilterDropdownVisibleChange={this.dateFilterDropdownVisibleChange}
         />
       );
@@ -223,5 +169,6 @@ const InfoContainer = (WrappedComponent, data) => {
   };
 };
 
-const BaseInfo = InfoContainer(BaseInfoPresent,data);
-export default BaseInfo;
+
+export default InfoContainer;
+
