@@ -13,7 +13,10 @@ import EditAuxiliary from './component/asset/auxiliary/EditAuxiliary';
 import TransferredInfo from "./component/asset/transfers/TransferredInfo";
 import StatusInfo from "./component/asset/statusInfo/StatusInfo";
 import MaintainInfo from "./component/asset/maintain/MaintainInfo";
-import Users from "./component/asset/users/usersInfo";
+import Users from "./component/asset/users/UsersInfo";
+import AddUser from './component/asset/users/AddUser';
+import EditUser from './component/asset/users/EditUser';
+import RolesInfo from './component/asset/roles/RolesInfo';
 const BaseInfo = props =>
   <LazyLoader load={loadBase}>
     {BaseInfo => <BaseInfo {...props} />}
@@ -71,8 +74,23 @@ const routes = [
         exact: true
       },
       {
-        path: "/asset/userInfo",
+        path: "/asset/usersInfo",
         component: Users,
+        exact: true
+      },
+      {
+        path: "/asset/usersInfo/addUser",
+        component: AddUser,
+        exact: true
+      },
+      {
+        path: "/asset/usersInfo/EditUser/:staffId",
+        component: EditUser,
+        exact: true
+      },
+      {
+        path: "/asset/rolesInfo",
+        component: RolesInfo,
         exact: true
       }
     ]

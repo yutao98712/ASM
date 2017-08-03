@@ -36,7 +36,7 @@ const UsersInfo = ({ clearFilters, pagination, data }) => {
       dataIndex: "staffId",
       key: "staffId",
       fixed: "left",
-      width: 100
+      width: 150
       
     },
     {
@@ -48,31 +48,22 @@ const UsersInfo = ({ clearFilters, pagination, data }) => {
     
     },
     {
-      title: "测试",
-      dataIndex: "test",
-      key: "test",
-      width: 200,
-      render: () => (
-        <span>测试实施军事打击了</span>
-      )
-    },
-    {
       title: "所属部门",
       dataIndex: "department",
       key: "department",
-      width: 150
+      width: 200
     },
     {
       title: "员工职位",
       dataIndex: "position",
       key: "position",
-      width: 150
+      width: 200
     },
     {
       title: "联系方式",
       dataIndex: "contact",
       key: "contact",
-      width: 150,
+      width: 200,
     },
     {
       title: "角色",
@@ -89,8 +80,8 @@ const UsersInfo = ({ clearFilters, pagination, data }) => {
         <span>
           <Link
             to={
-              "/asset/editAuxiliary/" +
-              (record.staffId.toString() ? record.id : "error")
+              "/asset/usersInfo/EditUser/" +
+              (record.staffId.toString() ? record.staffId : "error")
             }
           >
             修改用户信息
@@ -107,6 +98,11 @@ const UsersInfo = ({ clearFilters, pagination, data }) => {
     <div>
       <Title>用户信息列表</Title>
       <div style={{ padding: "20px 0" }}>
+        <Link to="/asset/usersInfo/addUser">
+          <CustomButton color="#0099ff">
+            <Icon type="plus-circle" /> 添加用户
+          </CustomButton>
+        </Link>
         <CustomButton color="#49D21C">
           <Icon type="login" /> 导入
         </CustomButton>
@@ -121,7 +117,7 @@ const UsersInfo = ({ clearFilters, pagination, data }) => {
         columns={columns}
         dataSource={data}
         bordered
-        scroll={{ x: 1200, y: 300 }}
+        scroll={{ x:1200, y: 300 }}
         pagination={pagination}
         size="middle"
       />
