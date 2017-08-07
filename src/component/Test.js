@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 
 class Test extends Component {
+  fetchInfo = () =>{
+    fetch(` `)
+      .then(response => response.json())
+      .then(json => console.log(json))
+  }
   render() {
     return (
       <table ref={this.props.tableRef}>

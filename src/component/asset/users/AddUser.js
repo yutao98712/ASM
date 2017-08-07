@@ -98,6 +98,16 @@ class AddUserForm extends Component {
             />
           )}
         </FormItem>
+        <FormItem {...formItemLayout} label="姓名" hasFeedback>
+          {getFieldDecorator("name",{
+            rules: [
+              {
+                required: true,
+                message: "请输入姓名"
+              }
+            ]
+          })(<Input />)}
+        </FormItem>
         <FormItem
           {...formItemLayout}
           label="所属部门"

@@ -58,11 +58,11 @@ const Roles = ({ clearFilters, pagination, data }) => {
         <span>
           <Link
             to={
-              "/asset/usersInfo/EditUser/" +
+              "/asset/rolesInfo/EditRole/" +
               (record.roleId.toString() ? record.roleId : "error")
             }
           >
-            修改角色权限
+            修改权限
           </Link>
           <span className="ant-divider" />
           <Popconfirm title="确定删除？">
@@ -76,7 +76,7 @@ const Roles = ({ clearFilters, pagination, data }) => {
     <div>
       <Title>角色信息列表</Title>
       <div style={{ padding: "20px 0" }}>
-        <Link to="/asset/usersInfo/addUser">
+        <Link to="/asset/rolesInfo/addRole">
           <CustomButton color="#0099ff">
             <Icon type="plus-circle" /> 添加角色
           </CustomButton>

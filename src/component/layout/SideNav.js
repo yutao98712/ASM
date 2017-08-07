@@ -90,12 +90,16 @@ const SideNav = props =>
       }
     >
       <Menu.Item key="9">
-        <Icon type="solution" />
-        <span className="nav-text">个人信息管理</span>
+        <Link to="/asset/personal/personalInfo">
+          <Icon type="solution" />
+          <span className="nav-text">个人信息管理</span>
+        </Link>
       </Menu.Item>
       <Menu.Item key="10">
-        <Icon type="edit" />
-        <span className="nav-text">修改密码</span>
+        <Link to="/asset/personal/editPassword">
+          <Icon type="edit" />
+          <span className="nav-text">修改密码</span>
+        </Link>
       </Menu.Item>
     </Submenu>
   </Menu>;

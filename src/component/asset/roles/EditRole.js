@@ -4,7 +4,7 @@ import Title from "../../custom/Title";
 const FormItem = Form.Item;
 const CheckboxGroup = Checkbox.Group;
 
-class AddRoleForm extends Component {
+class EditRoleForm extends Component {
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
@@ -44,21 +44,10 @@ class AddRoleForm extends Component {
     
     return (
       <Form onSubmit={this.handleSubmit}>
-        <Title>添加角色</Title>
+        <Title>修改角色权限</Title>
         <hr style={{ margin: "20px 0" }} />
         <FormItem {...formItemLayout} label="角色名称" hasFeedback>
-          {getFieldDecorator("name", {
-            rules: [
-              {
-                required: true,
-                message: "请填入角色名称"
-              },
-              {
-                max: 50,
-                message: "请输入小于30个字符"
-              }
-            ]
-          })(<Input />)}
+          普通用户
         </FormItem>
         <FormItem {...formItemLayout} label="请选择权限">
           {getFieldDecorator("permission")(
@@ -84,5 +73,5 @@ class AddRoleForm extends Component {
   }
 }
 
-const AddRole = Form.create()(AddRoleForm);
-export default AddRole;
+const EditRole = Form.create()(EditRoleForm);
+export default EditRole;

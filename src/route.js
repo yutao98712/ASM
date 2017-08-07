@@ -17,6 +17,11 @@ import Users from "./component/asset/users/UsersInfo";
 import AddUser from './component/asset/users/AddUser';
 import EditUser from './component/asset/users/EditUser';
 import RolesInfo from './component/asset/roles/RolesInfo';
+import AddRole from './component/asset/roles/addRole';
+import EditRole from './component/asset/roles/EditRole';
+import PersonInfo from './component/asset/personal/PersonInfo';
+import EditPassword from './component/asset/personal/EditPassword';
+import picutresWall from './component/asset/PicturesWall';
 const BaseInfo = props =>
   <LazyLoader load={loadBase}>
     {BaseInfo => <BaseInfo {...props} />}
@@ -41,6 +46,11 @@ const routes = [
       {
         path: "/asset/baseInfo/editBase/:id",
         component: EditBase,
+        exact: true
+      },
+      {
+        path: "/asset/baseInfo/picutresWall",
+        component: picutresWall,
         exact: true
       },
       {
@@ -91,6 +101,26 @@ const routes = [
       {
         path: "/asset/rolesInfo",
         component: RolesInfo,
+        exact: true
+      },
+      {
+        path: "/asset/rolesInfo/addRole",
+        component: AddRole,
+        exact: true
+      },
+      {
+        path: "/asset/rolesInfo/EditRole/:id",
+        component: EditRole,
+        exact: true
+      },
+      {
+        path: "/asset/personal/personalInfo",
+        component: PersonInfo,
+        exact: true
+      },
+      {
+        path: "/asset/personal/editPassword",
+        component: EditPassword,
         exact: true
       }
     ]

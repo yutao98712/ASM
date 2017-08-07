@@ -240,7 +240,7 @@ const BaseInfo = ({
         const menu = (
           <Menu>
             <Menu.Item>
-              <Link to="/">实物图片</Link>
+              <Link to="/asset/baseInfo/picutresWall">实物图片</Link>
             </Menu.Item>
             <Menu.Item>
               <Link to="/">发票</Link>

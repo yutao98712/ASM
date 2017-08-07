@@ -35,16 +35,16 @@ const UsersInfo = ({ clearFilters, pagination, data }) => {
       title: "员工工号",
       dataIndex: "staffId",
       key: "staffId",
-      fixed: "left",
-      width: 150
+      width: 170,
+      fixed: "left"
       
     },
     {
       title: "员工姓名",
       dataIndex: "name",
       key: "name",
-      fixed: "left",
-      width: 150
+      width: 150,
+      fixed: "left"
     
     },
     {
@@ -74,8 +74,8 @@ const UsersInfo = ({ clearFilters, pagination, data }) => {
     {
       title: "操作",
       key: "action",
-      width: 150,
-      fixed:'right',
+      width: 200,
+      fixed: "right",
       render: (text, record) =>
         <span>
           <Link
@@ -117,7 +117,7 @@ const UsersInfo = ({ clearFilters, pagination, data }) => {
         columns={columns}
         dataSource={data}
         bordered
-        scroll={{ x:1200, y: 300 }}
+        scroll={{ x:1270, y: 350 }}
         pagination={pagination}
         size="middle"
       />

@@ -4,7 +4,7 @@ import Title from "../../custom/Title";
 const FormItem = Form.Item;
 const Option = Select.Option;
 
-class EditUserForm extends Component {
+class EditPasswordForm extends Component {
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
@@ -16,7 +16,7 @@ class EditUserForm extends Component {
 
   checkPassword = (rule, value, callback) => {
     const form = this.props.form;
-    if (value && value !== form.getFieldValue("password")) {
+    if (value && value !== form.getFieldValue("newPassword")) {
       callback("您输入的两次密码不一致");
     } else {
       callback();
@@ -51,27 +51,14 @@ class EditUserForm extends Component {
     };
     return (
       <Form onSubmit={this.handleSubmit}>
-        <Title>修改用户信息</Title>
+        <Title>修改密码</Title>
         <hr style={{ margin: "20px 0" }} />
-        <FormItem {...formItemLayout} label="工号" hasFeedback>
-          1423852385823
-        </FormItem>
-        <FormItem {...formItemLayout} label="姓名" hasFeedback>
-          {getFieldDecorator("name",{
+        <FormItem {...formItemLayout} label="旧密码" hasFeedback>
+          {getFieldDecorator("oldPassword", {
             rules: [
               {
                 required: true,
-                message: "请输入姓名"
-              }
-            ]
-          })(<Input />)}
-        </FormItem>
-        <FormItem {...formItemLayout} label="密码" hasFeedback>
-          {getFieldDecorator("password", {
-            rules: [
-              {
-                required: true,
-                message: "请输入登陆密码,6-18个英文字幕、数字及符号"
+                message: "请输入旧密码,6-18个英文字幕、数字及符号"
               },{
                 min:6,
                 message: "密码必须大于6位"
@@ -82,12 +69,28 @@ class EditUserForm extends Component {
             ]
           })(<Input type="password" placeholder="请输入登陆密码,6-18个英文字幕、数字及符号" />)}
         </FormItem>
-        <FormItem {...formItemLayout} label="确认密码" hasFeedback>
+        <FormItem {...formItemLayout} label="新密码" hasFeedback>
+          {getFieldDecorator("newPassword", {
+            rules: [
+              {
+                required: true,
+                message: "请输入旧密码,6-18个英文字幕、数字及符号"
+              },{
+                min:6,
+                message: "密码必须大于6位"
+              },{
+                max:18,
+                message: "密码必须小于18位"
+              }
+            ]
+          })(<Input type="password" placeholder="请输入登陆密码,6-18个英文字幕、数字及符号" />)}
+        </FormItem>
+        <FormItem {...formItemLayout} label="确认新密码" hasFeedback>
           {getFieldDecorator("confirm", {
             rules: [
               {
                 required: true,
-                message: "请再次输入密码"
+                message: "请再次输入新密码"
               },
               {
                 validator: this.checkPassword
@@ -97,53 +100,8 @@ class EditUserForm extends Component {
             <Input
               type="password"
               onBlur={this.handleConfirmBlur}
-              placeholder="请再次输入密码"
+              placeholder="请再次输入新密码"
             />
-          )}
-        </FormItem>
-        <FormItem
-          {...formItemLayout}
-          label="所属部门"
-          wrapperCol={{
-            xs: { span: 24 },
-            sm: { span: 4 }
-          }}
-          hasFeedback
-        >
-          {getFieldDecorator("department", {
-            rules: [
-              {
-                required: true,
-                message: "请选择部门"
-              }
-            ]
-          })(
-            <Select>
-              <Option value="1">研发中心</Option>
-              <Option value="2">财务部</Option>
-              <Option value="3">综合管理部</Option>
-            </Select>
-          )}
-        </FormItem>
-        <FormItem {...formItemLayout} label="员工职位">
-          {getFieldDecorator("position")(<Input />)}
-        </FormItem>
-        <FormItem {...formItemLayout} label="联系方式">
-          {getFieldDecorator("contact")(<Input />)}
-        </FormItem>
-        <FormItem
-          {...formItemLayout}
-          label="角色"
-          wrapperCol={{
-            xs: { span: 24 },
-            sm: { span: 4 }
-          }}
-        >
-          {getFieldDecorator("role")(
-            <Select placeholder="默认为游客">
-              <Option value="1">普通用户</Option>
-              <Option value="0">游客</Option>
-            </Select>
           )}
         </FormItem>
         <FormItem {...tailFormItemLayout}>
@@ -155,6 +113,6 @@ class EditUserForm extends Component {
     );
   }
 }
-const EditUser = Form.create()(EditUserForm);
+const EditPassword = Form.create()(EditPasswordForm);
 
-export default EditUser;
+export default EditPassword;
