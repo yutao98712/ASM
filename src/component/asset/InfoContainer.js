@@ -25,7 +25,8 @@ const InfoContainer = (WrappedComponent, data) => {
           showQuickJumper: true,
         },
         dateRange: null,
-        filteredInfo: null
+        filteredInfo: null,
+        searchNumber: Number.POSITIVE_INFINITY
       };
     }
 
@@ -94,7 +95,7 @@ const InfoContainer = (WrappedComponent, data) => {
     };
 
     //日期搜索按钮回调
-    onDateSearch = () => {
+    onDateSearch = (key) => {
       this.setState(prevState => ({
         dateFilterDropdownVisible: false,
         search: {
@@ -104,7 +105,7 @@ const InfoContainer = (WrappedComponent, data) => {
         data: prevState.data
           .map(record => {
             if (!!this.state.dateRange) {
-              return moment(record.date, "YYYY-MM-DD").isBetween(
+              return moment(record[key], "YYYY-MM-DD").isBetween(
                 this.state.dateRange[0],
                 this.state.dateRange[1]
               )
@@ -135,6 +136,35 @@ const InfoContainer = (WrappedComponent, data) => {
       });
     };
 
+    //数值范围查询，数值改变回掉
+    onNumberChange = value => {
+     this.setState({
+       searchNumber: value
+     })
+    }
+    //数值筛选按钮回调
+    onNumberSearch = (key) => {
+      const { searchNumber } = this.state;
+      //创建正则，全局匹配，忽略大小写
+      this.setState(prevState => ({
+        filterDropdownVisible: false,
+        data: prevState.data
+          .map(record => {
+            //将该条记录对应的相应字段记录到match中
+            const match = record[key]===searchNumber;
+            //如果不匹配，则return null
+            if (!match) {
+              return null;
+            }
+            //否则
+            return {
+              ...record
+            };
+          })
+          .filter(record => !!record)
+      }));
+    }
+
     render() {
       let {
         filteredInfo,
@@ -142,7 +172,7 @@ const InfoContainer = (WrappedComponent, data) => {
         filtered,
         filterDropdownVisible,
         dateFilterDropdownVisible,
-        pagination
+        pagination,
       } = this.state;
       filteredInfo = filteredInfo || {};
       return (
@@ -163,6 +193,8 @@ const InfoContainer = (WrappedComponent, data) => {
           handleTableChange={this.handleTableChange}
           {...this.props}
           dateFilterDropdownVisibleChange={this.dateFilterDropdownVisibleChange}
+          onNumberChange={this.onNumberChange}
+          onNumberSearch={this.onNumberSearch}
         />
       );
     }

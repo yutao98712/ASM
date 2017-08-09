@@ -16,8 +16,8 @@ class EditBaseForm extends Component{
   
   componentDidMount() {
     this.props.form.setFieldsValue({
-      name: '万用表',
-      type: '办公设备'
+      asset_name: '万用表',
+      specification: '办公设备'
     });
     console.log(this.props.match);
   }
@@ -57,7 +57,7 @@ class EditBaseForm extends Component{
           { this.props.match.params.id }
         </FormItem>
         <FormItem {...formItemLayout} label="资产名称" hasFeedback>
-          {getFieldDecorator("name", {
+          {getFieldDecorator("asset_name", {
             rules: [
               {
                 required: true,
@@ -75,7 +75,7 @@ class EditBaseForm extends Component{
           }}
           hasFeedback
         >
-          {getFieldDecorator("type", {
+          {getFieldDecorator("asset_class", {
             rules: [
               {
                 required: true,
@@ -91,7 +91,7 @@ class EditBaseForm extends Component{
           )}
         </FormItem>
         <FormItem {...formItemLayout} label="规格型号">
-          {getFieldDecorator("model")(<Input />)}
+          {getFieldDecorator("specification")(<Input />)}
         </FormItem>
         <FormItem {...formItemLayout} label="P/N">
           {getFieldDecorator("PN")(<Input />)}
@@ -100,13 +100,13 @@ class EditBaseForm extends Component{
           {getFieldDecorator("SN")(<Input />)}
         </FormItem>
         <FormItem {...formItemLayout} label="原值">
-          {getFieldDecorator("price")(<InputNumber min={0} step={0.01} />)}
+          {getFieldDecorator("asset_price")(<InputNumber min={0} step={0.01} />)}
         </FormItem>
         <FormItem {...formItemLayout} label="购置日期">
-          {getFieldDecorator("date")(<DatePicker />)}
+          {getFieldDecorator("purchase_date")(<DatePicker />)}
         </FormItem>
         <FormItem {...formItemLayout} label="备注">
-          {getFieldDecorator("remark")(<Input />)}
+          {getFieldDecorator("remarks")(<Input />)}
         </FormItem>
         <FormItem {...tailFormItemLayout}>
           <Button type="primary" htmlType="submit">

@@ -13,13 +13,15 @@ import {
   Dropdown,
   DatePicker,
   Popconfirm,
-  InputNumber
+  InputNumber,
+  Select
 } from "antd";
+
 import PropTypes from "prop-types";
 import InfoContainer from "../InfoContainer";
 const InputGroup = Input.Group;
 const RangePicker = DatePicker.RangePicker;
-
+const Option = Select.Option;
 //处理表格数据，便于导出
 const output = (data) => {
   let dataArray = [];
@@ -37,15 +39,15 @@ const output = (data) => {
   for (let i = 0; i < data.length; i++) {
     let dataItem = data[i];
     dataArray.push([
-      !!dataItem.name ? dataItem.name : "",
-      !!dataItem.type ? dataItem.type : "",
-      !!dataItem.model ? dataItem.model : "",
-      !!dataItem.pn ? dataItem.pn : "",
-      !!dataItem.sn ? dataItem.sn : "",
-      !!dataItem.date ? dataItem.date : "",
-      !!dataItem.price ? dataItem.price : "",
-      !!dataItem.amount ? dataItem.amount : "",
-      !!dataItem.remark ? dataItem.remark : ""
+      dataItem.asset_name ? dataItem.asset_name : "",
+      dataItem.asset_class ? dataItem.asset_class : "",
+      dataItem.specification ? dataItem.specification : "",
+      dataItem.PN ? dataItem.PN : "",
+      dataItem.SN ? dataItem.SN: "",
+      dataItem.purchase_date ? dataItem.purchase_date : "",
+      dataItem.asset_price ? dataItem.asset_price : "",
+      dataItem.asset_quantity ? dataItem.asset_quantity  : "",
+      dataItem.remarks ? dataItem.remarks : ""
     ]);
   }
   return dataArray;
@@ -67,31 +69,33 @@ const BaseInfo = ({
   data,
   pagination,
   handleTableChange,
+  onNumberChange,
+  onNumberSearch
 }) => {
   const columns = [
     {
       title: "资产ID",
-      dataIndex: "id",
-      key: "id",
+      dataIndex: "asset_ID",
+      key: "asset_ID",
       fixed: "left",
       width: 100
     },
     {
       title: "资产名称",
-      dataIndex: "name",
-      key: "name",
+      dataIndex: "asset_name",
+      key: "asset_name",
       fixed: "left",
       width: 100,
       filterDropdown: (
         <FilterDropdownPresnt
           onInputChange={onInputChange}
           onNameSearch={onNameSearch}
-          searchItem="name"
+          searchItem="asset_name"
           searchText={searchText}
         />
       ),
       filterIcon: (
-        <Icon type="search" style={{ color: filtered ? "#108ee9" : "#aaa" }} />
+        <Icon type="search" style={{ color: "#aaa" }} />
       ),
       //控制自定义筛选菜单是否可见
       filterDropdownVisible,
@@ -100,8 +104,8 @@ const BaseInfo = ({
     },
     {
       title: "资产类别",
-      dataIndex: "type",
-      key: "type",
+      dataIndex: "asset_class",
+      key: "asset_class",
       width: 150,
       filters: [
         {
@@ -117,19 +121,19 @@ const BaseInfo = ({
           value: "仪器仪表"
         }
       ],
-      onFilter: (value, record) => record.type.indexOf(value) === 0,
+      onFilter: (value, record) => record.asset_class.indexOf(value) === 0,
       filteredValue: filteredInfo.type || null
     },
     {
       title: "规格型号",
-      dataIndex: "model",
-      key: "model",
+      dataIndex: "specification",
+      key: "specification",
       width: 150,
       filterDropdown: (
         <FilterDropdownPresnt
           onInputChange={onInputChange}
           onNameSearch={onNameSearch}
-          searchItem="model"
+          searchItem="specification"
           searchText={searchText}
         />
       ),
@@ -137,14 +141,14 @@ const BaseInfo = ({
     },
     {
       title: "P/N",
-      dataIndex: "pn",
-      key: "pn",
+      dataIndex: "PN",
+      key: "PN",
       width: 150,
       filterDropdown: (
         <FilterDropdownPresnt
           onInputChange={onInputChange}
           onNameSearch={onNameSearch}
-          searchItem="pn"
+          searchItem="PN"
           searchText={searchText}
         />
       ),
@@ -152,14 +156,14 @@ const BaseInfo = ({
     },
     {
       title: "S/N",
-      dataIndex: "sn",
-      Key: "sn",
+      dataIndex: "SN",
+      Key: "SN",
       width: 150,
       filterDropdown: (
         <FilterDropdownPresnt
           onInputChange={onInputChange}
           onNameSearch={onNameSearch}
-          searchItem="sn"
+          searchItem="SN"
           searchText={searchText}
         />
       ),
@@ -167,8 +171,8 @@ const BaseInfo = ({
     },
     {
       title: "购置日期",
-      dataIndex: "date",
-      key: "date",
+      dataIndex: "purchase_date",
+      key: "purchase_date",
       width: 150,
       filterDropdown: (
         <div
@@ -186,7 +190,7 @@ const BaseInfo = ({
           />
           <Button
             type="primary"
-            onClick={onDateSearch}
+            onClick={() => onDateSearch("purchase_date")}
             style={{
               marginLeft: 10
             }}
@@ -201,34 +205,30 @@ const BaseInfo = ({
     },
     {
       title: "原值",
-      dataIndex: "price",
-      key: "price",
+      dataIndex: "asset_price",
+      key: "asset_price",
       width: 150,
       filterDropdown: (
         <InputGroup>
           <InputNumber
             style={{ width: 100, textAlign: "center" }}
-            placeholder="最小值"
+            onChange={onNumberChange}
           />
-          <InputNumber
-            style={{ width: 100, textAlign: "center", borderLeft: 0 }}
-            placeholder="最大值"
-          />
-          <Button type="primary">搜索</Button>
+          <Button type="primary" onClick={() => onNumberSearch("asset_price")}>搜索</Button>
         </InputGroup>
       ),
       filterIcon: <Icon type="search" />
     },
     {
       title: "账面数量",
-      dataIndex: "amount",
-      key: "amount",
+      dataIndex: "asset_quantity",
+      key: "asset_quantity",
       width: 150
     },
     {
       title: "备注",
-      dataIndex: "remark",
-      key: "remark",
+      dataIndex: "remarks",
+      key: "remarks",
       width: 150
     },
     {
@@ -243,10 +243,13 @@ const BaseInfo = ({
               <Link to="/asset/baseInfo/picutresWall">实物图片</Link>
             </Menu.Item>
             <Menu.Item>
-              <Link to="/">发票</Link>
+              <Link to="/asset/baseInfo/picutresWall">发票</Link>
             </Menu.Item>
             <Menu.Item>
-              <Link to={"/asset/AddAuxiliary/" + record.id}>完善辅助信息</Link>
+              {record.audit_isFill&record.audit_isFill===1? 
+                <Link to={"/asset/AddAuxiliary/" + record.asset_ID}>完善辅助信息</Link>
+                : <Link to={"/asset/editAuxiliary/" + record.asset_ID}>完善辅助信息</Link>
+              }
             </Menu.Item>
             <Menu.Item>
               <Link to="/">完善调拨信息</Link>
@@ -307,14 +310,14 @@ const BaseInfo = ({
         dataSource={data}
         bordered
         pagination={pagination}
-        scroll={{ x: 1600, y: 300 }}
+        scroll={{ x: 1600, y: 380 }}
         size="middle"
         onChange={handleTableChange}
       />
     </div>
   );
 };
-
+//参数类型限定
 BaseInfo.propTypes = {
   searchText: PropTypes.string.isRequired,
   onInputChange: PropTypes.func.isRequired,
@@ -331,22 +334,28 @@ BaseInfo.propTypes = {
   data: PropTypes.array.isRequired,
   pagination: PropTypes.object.isRequired,
   handleTableChange: PropTypes.func.isRequired,
+  onNumberSearch: PropTypes.func.isRequired
 };
-
+//模拟数据
 const data = [];
 for (let i = 0; i < 20; i++) {
   data.push({
     key: i,
-    id: i,
-    name: i % 2 === 1 ? "万用表" : "台式电脑",
-    type: i % 2 === 1 ? "维护工具" : "办公设备",
-    model: "胜利钳形表6956B",
-    sn: "092723011",
-    amount: 1,
-    date: "2017/6/" + (i + 1),
-    price: 169,
-    remark: "模拟数据",
-    pn: ""
+    asset_ID: i,
+    asset_name: i % 2 === 1 ? "万用表" : "台式电脑",
+    asset_class: i % 2 === 1 ? "维护工具" : "办公设备",
+    specification: "胜利钳形表6956B",
+    PN: "092723011",
+    SN: "",
+    asset_quantity: 1,
+    purchase_date: "2017/6/" + (i + 1),
+    asset_price: 169,
+    remarks: "模拟数据",
+    audit_isFill: 1,
+    repair_isFill: 1,
+    scrap_isFill: 1,
+    status_isFill: 1,
+    transfer_isFill: 1
   });
 }
 

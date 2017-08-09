@@ -16,7 +16,6 @@ const FilterDropdownPresnt = ({ searchText, onInputChange, onNameSearch, searchI
   <CustomFilterDropdown>
     <Input
       placeholder="请填入搜索名称"
-      value={searchText}
       onChange={onInputChange}
       onPressEnter={
         () => onNameSearch(searchItem)

@@ -45,7 +45,7 @@ class BaseFrom extends Component {
         <Title>添加资产基本信息</Title>
         <hr style={{ margin: "20px 0" }} />
         <FormItem {...formItemLayout} label="资产名称" hasFeedback>
-          {getFieldDecorator("name", {
+          {getFieldDecorator("asset_name", {
             rules: [
               {
                 required: true,
@@ -63,7 +63,7 @@ class BaseFrom extends Component {
           }}
           hasFeedback
         >
-          {getFieldDecorator("type", {
+          {getFieldDecorator("asset_class", {
             rules: [
               {
                 required: true,
@@ -79,7 +79,7 @@ class BaseFrom extends Component {
           )}
         </FormItem>
         <FormItem {...formItemLayout} label="规格型号">
-          {getFieldDecorator("model")(<Input />)}
+          {getFieldDecorator("specification")(<Input />)}
         </FormItem>
         <FormItem {...formItemLayout} label="P/N">
           {getFieldDecorator("PN")(<Input />)}
@@ -88,13 +88,13 @@ class BaseFrom extends Component {
           {getFieldDecorator("SN")(<Input />)}
         </FormItem>
         <FormItem {...formItemLayout} label="原值">
-          {getFieldDecorator("price")(<InputNumber min={0} step={0.01} />)}
+          {getFieldDecorator("asset_price")(<InputNumber min={0} step={0.01} />)}
         </FormItem>
         <FormItem {...formItemLayout} label="购置日期">
-          {getFieldDecorator("date")(<DatePicker />)}
+          {getFieldDecorator("purchase_date")(<DatePicker />)}
         </FormItem>
         <FormItem {...formItemLayout} label="备注">
-          {getFieldDecorator("remark")(<Input />)}
+          {getFieldDecorator("remarks")(<Input />)}
         </FormItem>
         <FormItem {...tailFormItemLayout}>
           <Button type="primary" htmlType="submit">

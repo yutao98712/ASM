@@ -3,12 +3,7 @@ import {
   Table,
   Icon,
   Button,
-  Input,
-  Menu,
-  Dropdown,
-  DatePicker,
   Popconfirm,
-  InputNumber
 } from "antd";
 import Title from "../../custom/Title";
 import { Link } from "react-router-dom";
@@ -75,30 +70,30 @@ const AuxiliaryInfo = ({clearFilters,pagination,data}) => {
   const columns = [
     {
       title: "资产ID",
-      dataIndex: "id",
-      key: "id",
+      dataIndex: "audit_ID",
+      key: "audit_ID",
       fixed: "left",
       width: 100
       //自定义筛选菜单，此函数之负责渲染图层
     },
     {
       title: "资产名称",
-      dataIndex: "name",
-      key: "name",
+      dataIndex: "asset_name",
+      key: "asset_name",
       fixed: "left",
       width: 100
       //自定义筛选菜单，此函数之负责渲染图层
     },
     {
       title: "资产编号",
-      dataIndex: "number",
-      key: "number",
+      dataIndex: "asset_no",
+      key: "asset_no",
       width: 150
     },
     {
       title: "使用日期",
-      dataIndex: "useDate",
-      key: "useDate",
+      dataIndex: "usered_date",
+      key: "usered_date",
       width: 150
     },
     {
