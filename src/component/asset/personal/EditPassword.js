@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { Form, Input, Select, Button } from "antd";
+import { Form, Input, Button } from "antd";
 import Title from "../../custom/Title";
 const FormItem = Form.Item;
-const Option = Select.Option;
+
 
 class EditPasswordForm extends Component {
   handleSubmit = e => {
@@ -54,7 +54,7 @@ class EditPasswordForm extends Component {
         <Title>修改密码</Title>
         <hr style={{ margin: "20px 0" }} />
         <FormItem {...formItemLayout} label="旧密码" hasFeedback>
-          {getFieldDecorator("oldPassword", {
+          {getFieldDecorator("staff_pwd", {
             rules: [
               {
                 required: true,

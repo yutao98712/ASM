@@ -56,7 +56,7 @@ class EditAuxiliaryForm extends Component{
           { this.props.match.params.id }
         </FormItem>
         <FormItem {...formItemLayout} label="资产名称" hasFeedback>
-          {getFieldDecorator("name", {
+          {getFieldDecorator("asset_name", {
             rules: [
               {
                 required: true,
@@ -70,7 +70,7 @@ class EditAuxiliaryForm extends Component{
           })(<Input />)}
         </FormItem>
         <FormItem {...formItemLayout} label="资产编号">
-          {getFieldDecorator("department")(<Input />)}
+          {getFieldDecorator("asset_no")(<Input />)}
         </FormItem>
         <FormItem
           {...formItemLayout}
@@ -81,7 +81,7 @@ class EditAuxiliaryForm extends Component{
           }}
           hasFeedback
         >
-          {getFieldDecorator("type")(
+          {getFieldDecorator("depreciation")(
             <Select>
               <Option value="2">2</Option>
               <Option value="3">3</Option>
@@ -90,22 +90,22 @@ class EditAuxiliaryForm extends Component{
           )}
         </FormItem>
         <FormItem {...formItemLayout} label="所在公司或部门">
-          {getFieldDecorator("department")(<Input />)}
+          {getFieldDecorator("asset_dept")(<Input />)}
         </FormItem>
         <FormItem {...formItemLayout} label="所在区域">
-          {getFieldDecorator("location")(<Input />)}
+          {getFieldDecorator("asset_location")(<Input />)}
         </FormItem>
         <FormItem {...formItemLayout} label="审核人">
-          {getFieldDecorator("audiator")(<Input />)}
+          {getFieldDecorator("audiator_name")(<Input />)}
         </FormItem>
         <FormItem {...formItemLayout} label="保管人">
-          {getFieldDecorator("custodian")(<Input />)}
+          {getFieldDecorator("asset_custodian")(<Input />)}
         </FormItem>
         <FormItem {...formItemLayout} label="使用日期">
-          {getFieldDecorator("useDate")(<DatePicker />)}
+          {getFieldDecorator("used_date")(<DatePicker />)}
         </FormItem>
         <FormItem {...formItemLayout} label="备注">
-          {getFieldDecorator("remark")(<Input />)}
+          {getFieldDecorator("remarks")(<Input />)}
         </FormItem>
         <FormItem {...tailFormItemLayout}>
           <Button type="primary" htmlType="submit">

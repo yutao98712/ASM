@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import moment from "moment";
 
-const InfoContainer = (WrappedComponent, data) => {
+const InfoContainer = (WrappedComponent, data, output) => {
   return class extends Component {
     /**
      * filterDropdownVisible 是否显示下拉框
@@ -195,6 +195,7 @@ const InfoContainer = (WrappedComponent, data) => {
           dateFilterDropdownVisibleChange={this.dateFilterDropdownVisibleChange}
           onNumberChange={this.onNumberChange}
           onNumberSearch={this.onNumberSearch}
+          output={output}
         />
       );
     }

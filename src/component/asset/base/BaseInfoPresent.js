@@ -14,16 +14,14 @@ import {
   DatePicker,
   Popconfirm,
   InputNumber,
-  Select
 } from "antd";
 
 import PropTypes from "prop-types";
 import InfoContainer from "../InfoContainer";
 const InputGroup = Input.Group;
 const RangePicker = DatePicker.RangePicker;
-const Option = Select.Option;
 //处理表格数据，便于导出
-const output = (data) => {
+const outputBase = (data) => {
   let dataArray = [];
   dataArray.push([
     "资产名称",
@@ -53,7 +51,7 @@ const output = (data) => {
   return dataArray;
 };
 
-const BaseInfo = ({
+const Bases = ({
   searchText,
   onInputChange,
   onNameSearch,
@@ -70,7 +68,8 @@ const BaseInfo = ({
   pagination,
   handleTableChange,
   onNumberChange,
-  onNumberSearch
+  onNumberSearch,
+  output
 }) => {
   const columns = [
     {
@@ -252,10 +251,10 @@ const BaseInfo = ({
               }
             </Menu.Item>
             <Menu.Item>
-              <Link to="/">完善调拨信息</Link>
+              <Link to="/asset/transferredInfo/addtransferred">完善调拨信息</Link>
             </Menu.Item>
             <Menu.Item>
-              <Link to="/">资产现状</Link>
+              <Link to={`/asset/statusInfo/addStatus/${record.asset_ID}`}>资产现状</Link>
             </Menu.Item>
             <Menu.Item>
               <Link to="/">设备维修</Link>
@@ -267,7 +266,7 @@ const BaseInfo = ({
         );
         return (
           <span>
-            <Link to={"/asset/baseInfo/editBase/" + record.id}>编辑</Link>
+            <Link to={"/asset/baseInfo/editBase/" + record.asset_ID}>编辑</Link>
             <span className="ant-divider" />
             <Popconfirm title="确定删除？">
               <a>删除</a>
@@ -290,12 +289,9 @@ const BaseInfo = ({
       <div style={{ padding: "20px 0" }}>
         <Link to="/asset/baseInfo/addBase">
           <CustomButton color="#0099ff">
-            <Icon type="plus-circle" /> 增加
+            <Icon type="plus-circle" /> 添加
           </CustomButton>
         </Link>
-        <CustomButton color="#49D21C">
-          <Icon type="login" /> 导入
-        </CustomButton>
         <CSVLink data={output(data)} target="_blank">
           <CustomButton color="#49D21C">
             <Icon type="logout" /> 导出
@@ -318,7 +314,7 @@ const BaseInfo = ({
   );
 };
 //参数类型限定
-BaseInfo.propTypes = {
+Bases.propTypes = {
   searchText: PropTypes.string.isRequired,
   onInputChange: PropTypes.func.isRequired,
   onNameSearch: PropTypes.func.isRequired,
@@ -334,7 +330,8 @@ BaseInfo.propTypes = {
   data: PropTypes.array.isRequired,
   pagination: PropTypes.object.isRequired,
   handleTableChange: PropTypes.func.isRequired,
-  onNumberSearch: PropTypes.func.isRequired
+  onNumberSearch: PropTypes.func.isRequired,
+  output: PropTypes.func.isRequired
 };
 //模拟数据
 const data = [];
@@ -359,5 +356,5 @@ for (let i = 0; i < 20; i++) {
   });
 }
 
-const BaseInfoPresent = InfoContainer(BaseInfo, data);
-export default BaseInfoPresent;
+const BaseInfo= InfoContainer(Bases, data,outputBase);
+export default BaseInfo;

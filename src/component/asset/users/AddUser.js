@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Form, Input, Select, Button, InputNumber, DatePicker } from "antd";
+import { Form, Input, Select, Button } from "antd";
 import Title from "../../custom/Title";
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -16,7 +16,7 @@ class AddUserForm extends Component {
 
   checkPassword = (rule, value, callback) => {
     const form = this.props.form;
-    if (value && value !== form.getFieldValue("password")) {
+    if (value && value !== form.getFieldValue("staff_pwd")) {
       callback("您输入的两次密码不一致");
     } else {
       callback();
@@ -54,7 +54,7 @@ class AddUserForm extends Component {
         <Title>添加用户</Title>
         <hr style={{ margin: "20px 0" }} />
         <FormItem {...formItemLayout} label="工号" hasFeedback>
-          {getFieldDecorator("staffId", {
+          {getFieldDecorator("staff_ID", {
             rules: [
               {
                 required: true,
@@ -64,7 +64,7 @@ class AddUserForm extends Component {
           })(<Input placeholder="请填入工号，此工号及为用户名"/>)}
         </FormItem>
         <FormItem {...formItemLayout} label="密码" hasFeedback>
-          {getFieldDecorator("password", {
+          {getFieldDecorator("staff_pwd", {
             rules: [
               {
                 required: true,
@@ -99,7 +99,7 @@ class AddUserForm extends Component {
           )}
         </FormItem>
         <FormItem {...formItemLayout} label="姓名" hasFeedback>
-          {getFieldDecorator("name",{
+          {getFieldDecorator("staff_name",{
             rules: [
               {
                 required: true,
@@ -117,7 +117,7 @@ class AddUserForm extends Component {
           }}
           hasFeedback
         >
-          {getFieldDecorator("department", {
+          {getFieldDecorator("staff_dept", {
             rules: [
               {
                 required: true,
@@ -133,10 +133,10 @@ class AddUserForm extends Component {
           )}
         </FormItem>
         <FormItem {...formItemLayout} label="员工职位">
-          {getFieldDecorator("position")(<Input />)}
+          {getFieldDecorator("staff_position")(<Input />)}
         </FormItem>
         <FormItem {...formItemLayout} label="联系方式">
-          {getFieldDecorator("contact")(<Input />)}
+          {getFieldDecorator("contact_way")(<Input />)}
         </FormItem>
         <FormItem
           {...formItemLayout}
@@ -146,7 +146,7 @@ class AddUserForm extends Component {
             sm: { span: 4 }
           }}
         >
-          {getFieldDecorator("role")(
+          {getFieldDecorator("role_ID")(
             <Select placeholder="默认为游客">
               <Option value="1">普通用户</Option>
               <Option value="0">游客</Option>

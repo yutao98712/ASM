@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { Form, Input, Select, Button } from "antd";
+import { Form, Input, Button } from "antd";
 import Title from "../../custom/Title";
 const FormItem = Form.Item;
-const Option = Select.Option;
+
 
 class PersonalInfoForm extends Component {
   handleSubmit = e => {
@@ -71,10 +71,10 @@ class PersonalInfoForm extends Component {
           普通用户
         </FormItem>
         <FormItem {...formItemLayout} label="员工职位">
-          {getFieldDecorator("position")(<Input />)}
+          {getFieldDecorator("staff_position")(<Input />)}
         </FormItem>
         <FormItem {...formItemLayout} label="联系方式">
-          {getFieldDecorator("contact")(<Input />)}
+          {getFieldDecorator("contact_way")(<Input />)}
         </FormItem>
         <FormItem {...tailFormItemLayout}>
           <Button type="primary" htmlType="submit">

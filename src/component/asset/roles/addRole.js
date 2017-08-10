@@ -47,7 +47,7 @@ class AddRoleForm extends Component {
         <Title>添加角色</Title>
         <hr style={{ margin: "20px 0" }} />
         <FormItem {...formItemLayout} label="角色名称" hasFeedback>
-          {getFieldDecorator("name", {
+          {getFieldDecorator("role_name", {
             rules: [
               {
                 required: true,

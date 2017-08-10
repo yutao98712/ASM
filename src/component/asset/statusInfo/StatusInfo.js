@@ -1,97 +1,104 @@
-import React, { Component } from "react";
-import { Table } from "antd";
+import React from "react";
+import { Table, Icon, Button } from "antd";
 import Title from "../../custom/Title";
 import { Link } from "react-router-dom";
-let data = [];
+import InfoContainer from "../InfoContainer";
+import { CSVLink } from "react-csv";
+import CustomButton from "../../custom/CustomButton";
+
+let dataSource = [];
 for (let i = 0; i < 20; i++) {
-  data.push({
+  dataSource.push({
     key: i,
-    name: i % 2 === 1 ? "万用表" : "台式电脑",
-    first: '设备完好',
-    second: '设备完好',
-    third: '设备完好',
-    fourth: '设备损坏',
-    reamark: "模拟数据",
-    year: '2017'
+    status_ID: i,
+    asset_ID: i,
+    asset_name: i % 2 === 1 ? "万用表" : "台式电脑",
+    check_date: "2017/10/2",
+    status_handler: '张三',
+    device_status: "设备完好,无所坏,维修数次" , 
+    remarks: "模拟数据"
   });
 }
 
-class StatusInfo extends Component {
-  render() {
-    const columns = [
-      {
-        title: "资产ID",
-        dataIndex: "key",
-        key: "key",
-        fixed: "left",
-        width: 100
-        //自定义筛选菜单，此函数之负责渲染图层
-      },
-      {
-        title: "资产名称",
-        dataIndex: "name",
-        key: "name",
-        fixed: "left",
-        width: 100
-        //自定义筛选菜单，此函数之负责渲染图层
-      },
-      {
-        title: "年度",
-        dataIndex: "year",
-        key: "year"
-      },
-      {
-        title: "一季度",
-        dataIndex: "first",
-        key: "first"
-      },
-      {
-        title: "二季度",
-        dataIndex: "second",
-        key: "second"
-      },
-      {
-        title: "三季度",
-        dataIndex: "third",
-        key: "third"
-      },
-      {
-        title: "四季度",
-        dataIndex: "fourth",
-        key: "fourth"
-      },
-      {
-        title: "备注",
-        dataIndex: "remark",
-        key: "remark"
-      },
-      {
-        title: "操作",
-        key: "action",
-        fixed: "right",
-        width: 150,
-        render: () =>
-          <span>
-            <Link to="/">编辑</Link>
-            <span className="ant-divider" />
-            <Link to="/">删除</Link>
-            <span className="ant-divider" />
-          </span>
-      }
-    ];
+const Status = ({data,pagination}) => {
+  const columns = [
+    {
+      title: "资产ID",
+      dataIndex: "key",
+      key: "key",
+      fixed: "left",
+      width: 150
+      //自定义筛选菜单，此函数之负责渲染图层
+    },
+    {
+      title: "资产名称",
+      dataIndex: "asset_name",
+      key: "asset_name",
+      fixed: "left",
+      width: 150
+      //自定义筛选菜单，此函数之负责渲染图层
+    },
+    {
+      title: "检查日期",
+      dataIndex: "check_date",
+      key: "check_date",
+      width: 150,
+    },
+    
+    {
+      title: "检查人",
+      dataIndex: "status_handler",
+      key: "status_handler",
+      width: 200,
+    },
+    {
+      title: "检查结果",
+      dataIndex: "device_status",
+      key: "device_status",
+      width: 300,
+    },
+    {
+      title: "备注",
+      dataIndex: "remarks",
+      key: "remarks",
+      width: 200,
+    },
+    {
+      title: "操作",
+      key: "action",
+      fixed: "right",
+      width: 150,
+      render: () =>
+        <span>
+          <Link to="/">编辑</Link>
+          <span className="ant-divider" />
+          <Link to="/">删除</Link>
+        </span>
+    }
+  ];
 
-    return (
-      <div>
-        <Title>资产现状列表</Title>
-        <Table
-          columns={columns}
-          dataSource={data}
-          bordered
-          scroll={{ x: 1600 }}
-        />
+  return (
+    <div>
+      <Title>资产现状列表</Title>
+      <div style={{ padding: "20px 0" }}>
+        <CSVLink data={"no message"} target="_blank">
+          <CustomButton color="#49D21C">
+            <Icon type="logout" /> 导出
+          </CustomButton>
+        </CSVLink>
+        &nbsp;&nbsp;&nbsp;<Button type="primary">重置筛选</Button>
       </div>
-    );
-  }
-}
+      <Table
+        columns={columns}
+        dataSource={data}
+        bordered
+        scroll={{ x: 1300, y:380 }}
+        pagination={pagination}
+        size="middle"
+      />
+    </div>
+  );
+};
 
+const StatusInfo = InfoContainer(Status, dataSource);
 export default StatusInfo;

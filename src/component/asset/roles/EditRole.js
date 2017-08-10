@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Form, Input, Button, Checkbox } from "antd";
+import { Form, Button, Checkbox } from "antd";
 import Title from "../../custom/Title";
 const FormItem = Form.Item;
 const CheckboxGroup = Checkbox.Group;

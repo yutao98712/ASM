@@ -1,17 +1,26 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import LazyLoader from "./LazyLoader";
+
 import loadBase from "bundle-loader?lazy!./component/asset/base/BaseInfoPresent";
 import AddBase from "./component/asset/base/AddBase";
 import EditBase from "./component/asset/base/EditBase";
+
 import HomePage from "./component/Home";
 import UserCenter from "./component/management/UserCenter";
 import WrappedLoginForm from "./component/LoginForm";
-import Auxiliary from "./component/asset/auxiliary/AuxiliaryInfo";
+
+import loadAuxiliary from "bundle-loader?lazy!./component/asset/auxiliary/AuxiliaryInfo"
 import AddAuxiliary from "./component/asset/auxiliary/AddAuxiliary";
 import EditAuxiliary from './component/asset/auxiliary/EditAuxiliary';
+
 import TransferredInfo from "./component/asset/transfers/TransferredInfo";
+import AddTransferred from "./component/asset/transfers/AddTransferred";
+import EditTransferred from "./component/asset/transfers/EditTransferred";
+
 import StatusInfo from "./component/asset/statusInfo/StatusInfo";
+import AddStatus from "./component/asset/statusInfo/AddStatus";
+
 import MaintainInfo from "./component/asset/maintain/MaintainInfo";
 import Users from "./component/asset/users/UsersInfo";
 import AddUser from './component/asset/users/AddUser';
@@ -25,6 +34,11 @@ import picutresWall from './component/asset/PicturesWall';
 const BaseInfo = props =>
   <LazyLoader load={loadBase}>
     {BaseInfo => <BaseInfo {...props} />}
+</LazyLoader>;
+
+const AuxiliaryInfo = props =>
+  <LazyLoader load={loadAuxiliary}>
+    {AuxiliaryInfo => <AuxiliaryInfo {...props} />}
   </LazyLoader>;
 
 const routes = [
@@ -55,7 +69,7 @@ const routes = [
       },
       {
         path: "/asset/auxiliaryInfo",
-        component: Auxiliary,
+        component: AuxiliaryInfo,
         exact: true
       },
       {
@@ -74,8 +88,23 @@ const routes = [
         exact: true
       },
       {
+        path: "/asset/transferredInfo/addtransferred",
+        component: AddTransferred,
+        exact: true
+      },
+      {
+        path: "/asset/transferredInfo/edittransferred/:id",
+        component: EditTransferred,
+        exact: true
+      },
+      {
         path: "/asset/statusInfo",
         component: StatusInfo,
+        exact: true
+      },
+      {
+        path: "/asset/statusInfo/addStatus/:id",
+        component: AddStatus,
         exact: true
       },
       {

@@ -20,12 +20,12 @@ let usersDataSource = [];
 for (let i = 0; i < 20; i++) {
   usersDataSource.push({
     key: i,
-    staffId: i,
-    name: i % 2 === 1 ? "张三" : "李四",
-    department: "研发中心",
-    position: "前端开发",
-    contact: "15167303132",
-    role: "普通用户"
+    staff_ID: i,
+    staff_name: i % 2 === 1 ? "张三" : "李四",
+    staff_dept: "研发中心",
+    staff_position: "前端开发",
+    contact_way: "15167303132",
+    role_ID: "普通用户"
   });
 }
 
@@ -33,42 +33,42 @@ const UsersInfo = ({ clearFilters, pagination, data }) => {
   const columns = [
     {
       title: "员工工号",
-      dataIndex: "staffId",
-      key: "staffId",
+      dataIndex: "staff_ID",
+      key: "staff_ID",
       width: 170,
       fixed: "left"
       
     },
     {
       title: "员工姓名",
-      dataIndex: "name",
-      key: "name",
+      dataIndex: "staff_name",
+      key: "staff_name",
       width: 150,
       fixed: "left"
     
     },
     {
       title: "所属部门",
-      dataIndex: "department",
-      key: "department",
+      dataIndex: "staff_dept",
+      key: "staff_dept",
       width: 200
     },
     {
       title: "员工职位",
-      dataIndex: "position",
-      key: "position",
+      dataIndex: "staff_position",
+      key: "staff_position",
       width: 200
     },
     {
       title: "联系方式",
-      dataIndex: "contact",
-      key: "contact",
+      dataIndex: "contact_way",
+      key: "contact_way",
       width: 200,
     },
     {
       title: "角色",
-      dataIndex: "role",
-      key: "role",
+      dataIndex: "role_ID",
+      key: "role_ID",
       width: 150,
     },
     {
@@ -81,7 +81,7 @@ const UsersInfo = ({ clearFilters, pagination, data }) => {
           <Link
             to={
               "/asset/usersInfo/EditUser/" +
-              (record.staffId.toString() ? record.staffId : "error")
+              (record.staff_ID.toString() ? record.staff_ID : "error")
             }
           >
             修改用户信息
@@ -103,14 +103,6 @@ const UsersInfo = ({ clearFilters, pagination, data }) => {
             <Icon type="plus-circle" /> 添加用户
           </CustomButton>
         </Link>
-        <CustomButton color="#49D21C">
-          <Icon type="login" /> 导入
-        </CustomButton>
-        <CSVLink data={""} target="_blank">
-          <CustomButton color="#49D21C">
-            <Icon type="logout" /> 导出
-          </CustomButton>
-        </CSVLink>
         &nbsp;&nbsp;&nbsp;<Button type="primary">重置筛选</Button>
       </div>
       <Table

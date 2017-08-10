@@ -19,8 +19,8 @@ let usersDataSource = [];
 for (let i = 0; i < 2; i++) {
   usersDataSource.push({
     key: i,
-    roleId: i,
-    roleName: i % 2 === 1 ? "游客" : "普通用户",
+    role_ID: i,
+    role_name: i % 2 === 1 ? "游客" : "普通用户",
     permission: "基本信息管理;辅助信息管理;",
   });
 }
@@ -29,16 +29,16 @@ const Roles = ({ clearFilters, pagination, data }) => {
   const columns = [
     {
       title: "角色ID",
-      dataIndex: "roleId",
-      key: "roleId",
+      dataIndex: "role_ID",
+      key: "role_ID",
       fixed: "left",
       width: 150
       
     },
     {
       title: "角色名称",
-      dataIndex: "roleName",
-      key: "roleName",
+      dataIndex: "role_name",
+      key: "role_name",
       fixed: "left",
       width: 150
     
@@ -59,7 +59,7 @@ const Roles = ({ clearFilters, pagination, data }) => {
           <Link
             to={
               "/asset/rolesInfo/EditRole/" +
-              (record.roleId.toString() ? record.roleId : "error")
+              (record.role_ID.toString() ? record.role_ID : "未知错误")
             }
           >
             修改权限
