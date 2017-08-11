@@ -251,13 +251,13 @@ const Bases = ({
               }
             </Menu.Item>
             <Menu.Item>
-              <Link to="/asset/transferredInfo/addtransferred">完善调拨信息</Link>
+              <Link to="/asset/transferredInfo/addtransferred">添加调拨记录</Link>
             </Menu.Item>
             <Menu.Item>
-              <Link to={`/asset/statusInfo/addStatus/${record.asset_ID}`}>资产现状</Link>
+              <Link to={`/asset/statusInfo/addStatus/${record.asset_ID}`}>添加现状记录</Link>
             </Menu.Item>
             <Menu.Item>
-              <Link to="/">设备维修</Link>
+              <Link to={`/asset/MaintainInfo/addMaintain/${record.asset_ID}`}>添加维修记录</Link>
             </Menu.Item>
             <Menu.Item>
               <Link to="/">完善处置信息</Link>

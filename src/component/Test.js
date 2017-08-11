@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 class Test extends Component {
   fetchInfo = () =>{
-    fetch(` `)
+    fetch(``)
       .then(response => response.json())
       .then(json => console.log(json))
   }
@@ -25,4 +25,5 @@ class Test extends Component {
     )
   }
 }
+
 export default Test;

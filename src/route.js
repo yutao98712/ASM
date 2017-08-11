@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import LazyLoader from "./LazyLoader";
-
+//基本信息管理模块
 import loadBase from "bundle-loader?lazy!./component/asset/base/BaseInfoPresent";
 import AddBase from "./component/asset/base/AddBase";
 import EditBase from "./component/asset/base/EditBase";
@@ -9,7 +9,7 @@ import EditBase from "./component/asset/base/EditBase";
 import HomePage from "./component/Home";
 import UserCenter from "./component/management/UserCenter";
 import WrappedLoginForm from "./component/LoginForm";
-
+//辅助信息管理模块
 import loadAuxiliary from "bundle-loader?lazy!./component/asset/auxiliary/AuxiliaryInfo"
 import AddAuxiliary from "./component/asset/auxiliary/AddAuxiliary";
 import EditAuxiliary from './component/asset/auxiliary/EditAuxiliary';
@@ -20,8 +20,11 @@ import EditTransferred from "./component/asset/transfers/EditTransferred";
 
 import StatusInfo from "./component/asset/statusInfo/StatusInfo";
 import AddStatus from "./component/asset/statusInfo/AddStatus";
+import EditStatus from "./component/asset/statusInfo/EditStatus";
 
 import MaintainInfo from "./component/asset/maintain/MaintainInfo";
+import AddMaintain from "./component/asset/maintain/AddMaintain";
+
 import Users from "./component/asset/users/UsersInfo";
 import AddUser from './component/asset/users/AddUser';
 import EditUser from './component/asset/users/EditUser';
@@ -31,6 +34,7 @@ import EditRole from './component/asset/roles/EditRole';
 import PersonInfo from './component/asset/personal/PersonInfo';
 import EditPassword from './component/asset/personal/EditPassword';
 import picutresWall from './component/asset/PicturesWall';
+
 const BaseInfo = props =>
   <LazyLoader load={loadBase}>
     {BaseInfo => <BaseInfo {...props} />}
@@ -108,8 +112,18 @@ const routes = [
         exact: true
       },
       {
+        path: "/asset/statusInfo/EditStatus/:id",
+        component: EditStatus,
+        exact: true
+      },
+      {
         path: "/asset/MaintainInfo",
         component: MaintainInfo,
+        exact: true
+      },
+      {
+        path: "/asset/MaintainInfo/addMaintain/:id",
+        component: AddMaintain,
         exact: true
       },
       {

@@ -1,5 +1,5 @@
 import React from "react";
-import { Table, Icon, Button } from "antd";
+import { Table, Icon, Button, Popconfirm } from "antd";
 import Title from "../../custom/Title";
 import { Link } from "react-router-dom";
 import InfoContainer from "../InfoContainer";
@@ -68,11 +68,13 @@ const Status = ({data,pagination}) => {
       key: "action",
       fixed: "right",
       width: 150,
-      render: () =>
+      render: (text,record) =>
         <span>
-          <Link to="/">编辑</Link>
+          <Link to={`/asset/statusInfo/EditStatus/${record.status_ID}`}>编辑</Link>
           <span className="ant-divider" />
-          <Link to="/">删除</Link>
+          <Popconfirm title="确定删除？">
+            <a>删除</a>
+          </Popconfirm>
         </span>
     }
   ];
